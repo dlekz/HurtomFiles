@@ -4,14 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using HurtomFiles.Logic;
 
 namespace HurtomFiles.WPF
 {
@@ -20,9 +13,18 @@ namespace HurtomFiles.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private InformationElementCollection elements;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            elements = new InformationElementCollection(this.MainGrid, this);
+            elements.Add("https://toloka.to/t108863");
+            elements.Add("https://toloka.to/t97235");
+            elements.Add("https://toloka.to/t97237");
+            elements.Add("https://toloka.to/t109121");
+            elements.Add("https://toloka.to/t109209");
         }
     }
 }

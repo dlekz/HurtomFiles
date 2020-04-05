@@ -4,6 +4,25 @@
              xmlns:local="clr-namespace:HurtomFiles.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="ButtonStyle">
+            <Setter Property="Control.FontSize" Value="18" />
+            <Setter Property="Control.FontFamily" Value="Verdana Bold" />
+        </Style>
+        <Style x:Key="TitleStyle">
+            <Setter Property="Control.FontSize" Value="25" />
+            <Setter Property="Control.FontFamily" Value="Algerian" />
+        </Style>
+        <Style x:Key="DataGridStyle">
+            <Setter Property="DataGrid.ColumnWidth" Value="*" />
+            <Setter Property="DataGrid.RowHeight" Value="30" />
+            <Setter Property="Control.FontFamily" Value="Comic Sans MS Bold" />
+            <Setter Property="Control.FontSize" Value="18" />
+            <Setter Property="Control.HorizontalContentAlignment" Value="Center" />
+            <!--            <Setter Property="DataGrid.IsReadOnly" Value="true" />   -->
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        </Style>
+        <Style x:Key="TextBoxStyle">
+            <Setter Property="TextBox.TextAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>
