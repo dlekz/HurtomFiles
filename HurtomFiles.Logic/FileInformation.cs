@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-
 
 namespace HurtomFiles.Logic
 {
@@ -14,17 +9,19 @@ namespace HurtomFiles.Logic
     {
         public Title title;
         public string type;
-        public string imageUrl;
+        public string imageUri;
         public string information;
+        public string source;
 
-        public FileInformation(string url)
+        public FileInformation(string uri)
         {
             this.title = new Title();
             this.type = "";
-            this.imageUrl = "";
+            this.imageUri = "";
             this.information = "";
+            this.source = uri;
 
-            var htmlDocument = HtmlDocumentLoadAsync(url).Result;
+            var htmlDocument = new HtmlDocument().HtmlDocumentLoadAsync(uri).Result;
             SetFields(htmlDocument);
         }
 
@@ -33,42 +30,22 @@ namespace HurtomFiles.Logic
             var nav = htmlDocument.DocumentNode.SelectNodes("//td[@class='bodyline']/table")[2];
             var postbody = htmlDocument.DocumentNode.SelectNodes("//span[@class='postbody']").First();
 
-            this.title = new Title(GetHtmlElement(htmlDocument, "//a[@class='maintitle']"));
-            this.type = string.Join(" » ", (FindNode(nav, new string[] { "a" })
+            this.title = new Title(htmlDocument.GetHtmlElement("//a[@class='maintitle']"));
+            this.type = string.Join(" » ", (nav.FindNode("a")
                 .Skip(2).Select(el => el.InnerText.Trim())));
-            this.imageUrl = "https:" + FindNode(postbody, new string[] { "img" })
+            this.imageUri = "https:" + postbody.FindNode("img")
                 .First().Attributes["src"].Value;
             this.information = "";
         }
 
-        public async Task<HtmlDocument> HtmlDocumentLoadAsync(string url) 
+        public override bool Equals(object obj)
         {
-            var client = new HttpClient();
-            var htmlDoc = new HtmlDocument();
-            var response = await client.GetAsync(url);
-
-            Stream stream = await response.Content.ReadAsStreamAsync();
-
-            htmlDoc.Load(stream);
-
-            return htmlDoc;
-        }
-
-        public static string GetHtmlElement(HtmlDocument htmlDoc, string pattern) =>
-            htmlDoc.DocumentNode.SelectNodes(pattern).First().InnerText.Trim();
-
-        public static List<HtmlNode> FindNode(HtmlNode parent, string[] name)
-        {
-            List<HtmlNode> htmlNodes = new List<HtmlNode>();
-            foreach (var el in parent.ChildNodes)
+            if (obj is FileInformation fi) 
             {
-                if (name.Contains(el.Name))
-                    htmlNodes.Add(el);
-
-                if (el.HasChildNodes)
-                    htmlNodes.AddRange(FindNode(el, name));
+                if (fi.title.ToString() == this.title.ToString())
+                    return true;
             }
-            return htmlNodes;
+            return false;
         }
     }
 }
