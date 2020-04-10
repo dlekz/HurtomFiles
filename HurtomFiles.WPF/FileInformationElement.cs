@@ -8,12 +8,19 @@ using System.Threading.Tasks;
 
 namespace HurtomFiles.WPF
 {
-    public class InformationElement : Border
+    public class FileInformationElement : Border
     {
-        public InformationElement(string uri)
+        public FileInformationElement(string uri)
         {
             var info = Task.Run(() => new FileInformation(uri)).Result;
 
+            Set(info);
+        }
+
+        public FileInformationElement(FileInformation info) => Set(info);
+
+        private void Set(FileInformation info) 
+        {
             this.Width = 200;
             this.Height = 300;
             this.Background = Brushes.WhiteSmoke;
@@ -31,7 +38,7 @@ namespace HurtomFiles.WPF
                 FontFamily = new FontFamily("Verdana Bold"),
             };
 
-            stack.Children.Add(SetImage(new Uri(info.imageUrl), this.Height - 60));
+            stack.Children.Add(SetImage(new Uri(info.imageUri), this.Height - 60));
             stack.Children.Add(text);
             this.Child = stack;
         }
