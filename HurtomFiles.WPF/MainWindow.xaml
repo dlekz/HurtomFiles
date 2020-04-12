@@ -7,12 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="900">
     <Grid>
-        <ScrollViewer>
-            <WrapPanel x:Name="MainGrid" 
-            Grid.Column="0"  
-            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
-            Background="LightGray" Margin="0">
-            </WrapPanel>
-        </ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="LightGray" x:Name="HeaderGrid"></Grid>
+        <Grid Grid.Row="1" x:Name="MainGrid"></Grid>
     </Grid>
 </Window>
