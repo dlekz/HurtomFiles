@@ -1,45 +1,38 @@
 ﻿using System;
-//using System.Resources;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Reflection;
-using Properties = HurtomFiles.WPF.Properties;
-using Microsoft.VisualBasic.CompilerServices;
+
 using System.IO;
 
 namespace HurtomFiles.WPF
 {
-    public class HeaderElement : Border
+    public class HeaderElement : Element
     {
-        public HeaderElement() 
-        {
-            this.Background = Brushes.WhiteSmoke;
-            this.BorderBrush = Brushes.Black;
-            this.BorderThickness = new Thickness(2);
-            this.Padding = new Thickness(5);
-            this.Margin = new Thickness(5);
+        public HeaderElement() : base() => Set();
 
+        private void Set() 
+        {
             StackPanel stack = new StackPanel()
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Left,
             };
 
-            var img = new Image() 
+            var img = new Image()
             {
                 Stretch = Stretch.Fill,
                 Height = 110,
                 Width = 521,
                 Source = LoadImage(Properties.Resources.HurtomTitle),
             };
-        
+
             stack.Children.Add(img);
             this.Child = stack;
-            
+
         }
 
         private static BitmapImage LoadImage(byte[] imageData)

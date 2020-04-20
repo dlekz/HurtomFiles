@@ -10,21 +10,19 @@ namespace HurtomFiles.WPF
 {
     public class FileInformationElementCollection : WrapPanel
     {
-        private readonly List<FileInformationElement> values = new List<FileInformationElement>();
-        public FileInformationElementCollection() => this.Set();
+        private readonly List<FileInformation> values = new List<FileInformation>();
 
-        public void Add(string uri)
+        public FileInformationElementCollection()
         {
-            var value = new FileInformationElement(uri);
-            values.Add(value);
-            this.Children.Add(value);
+            this.Set();
         }
+
+        public FileInformation this[int i] => values[i];
 
         public void Add(FileInformation info)
         {
-            var value = new FileInformationElement(info);
-            values.Add(value);
-            this.Children.Add(value);
+            this.Children.Add(new FileInformationElement(info));
+            values.Add(info);
         }
 
         public void AddRange(string uri) 
@@ -32,18 +30,17 @@ namespace HurtomFiles.WPF
             var infoColl = Task.Run(() => new FileInformationCollection(uri)).Result.values;
 
             foreach (var info in infoColl)
-            {
                 this.Add(info);
-            }
-
         }
 
         private void Set() 
         {
             this.VerticalAlignment = VerticalAlignment.Stretch;
             this.HorizontalAlignment = HorizontalAlignment.Stretch;
-            this.Background = Brushes.LightGray;
+            this.Background = Brushes.Orange;
             this.Margin = new Thickness(0);
         }
+
+        
     }
 }

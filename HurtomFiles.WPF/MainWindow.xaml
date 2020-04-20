@@ -5,13 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HurtomFiles.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900">
-    <Grid>
+        Title="MainWindow" Height="475" Width="975">
+    <Grid Background="Orange">
         <Grid.RowDefinitions>
             <RowDefinition Height="120" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="LightGray" x:Name="HeaderGrid"></Grid>
-        <Grid Grid.Row="1" x:Name="MainGrid"></Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="315"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="HeaderGrid" />
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" x:Name="SideBar" />
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" x:Name="MainGrid" />
     </Grid>
 </Window>
