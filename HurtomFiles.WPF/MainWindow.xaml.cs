@@ -23,22 +23,14 @@ namespace HurtomFiles.WPF
         {
             InitializeComponent();
 
-           var header = new HeaderElement();
-           this.HeaderGrid.Children.Add(header);
-           //MessageBox.Show(Resources.Count + "");
             elements = new FileInformationElementCollection();
             elements.AddRange("https://toloka.to/f16");
 
             var scroll = new ScrollViewer() { Content = elements };
 
+            this.HeaderGrid.Children.Add(new HeaderElement());
+            this.SideBar.Children.Add(new SideBarElement());
             this.MainGrid.Children.Add(scroll);
-            //this.MainGrid.Children.Add(elements);
-
-            //elements.Add("https://toloka.to/t108863");
-            //elements.Add("https://toloka.to/t97235");
-            //elements.Add("https://toloka.to/t97237");
-            //elements.Add("https://toloka.to/t109121");
-            //elements.Add("https://toloka.to/t109209");
         }
     }
 }
