@@ -9,7 +9,7 @@ using System.Linq;
 namespace HurtomFiles.Tests
 {
     [TestFixture]
-    public class HtmlFileCollectionTests
+    public class FileInformationCollection_Tests
     {
         [TestCase("https://toloka.to/f16")]
         public void FileInformationCollectionTest(string uri) 
@@ -23,6 +23,14 @@ namespace HurtomFiles.Tests
             var fileInfoCollection = new FileInformationCollection(uri);
 
             Assert.AreEqual(count, fileInfoCollection.Count);
+        }
+
+        [TestCase("https://toloka.to/f16","https://toloka.to/f16-45")]
+        public void FileInformationCollection_NextPage(string thisPage, string nextPage) 
+        {
+            var fileInfoCollection = new FileInformationCollection(thisPage);
+
+            Assert.AreEqual(nextPage, fileInfoCollection.NextPage);
         }
     }
 }

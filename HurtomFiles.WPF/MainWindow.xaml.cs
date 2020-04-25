@@ -26,10 +26,17 @@ namespace HurtomFiles.WPF
             InitializeComponent();
             this.MouseMove += CursorChange;
 
-            elements = new FileInformationElementCollection();
-            elements.AddRange("https://toloka.to/f16");
+            elements = new FileInformationElementCollection("https://toloka.to/f16");
 
-            var scroll = new ScrollViewer() { Content = elements };
+            var elementsPanel = new StackPanel();
+            var addMoreElement = new AddMoreElements_Button();
+
+            addMoreElement.Click += AddMoreElements_Button_Click;
+
+            elementsPanel.Children.Add(elements);
+            elementsPanel.Children.Add(addMoreElement);
+
+            var scroll = new ScrollViewer() { Content = elementsPanel };
 
             this.HeaderGrid.Children.Add(new HeaderElement());
             this.SideBar.Children.Add(new SideBarElement());
@@ -42,6 +49,11 @@ namespace HurtomFiles.WPF
                 this.Cursor = Cursors.Hand;
             else
                 this.Cursor = Cursors.Arrow;
+        }
+
+        private void AddMoreElements_Button_Click(object sender, EventArgs e) 
+        {
+            elements.AddPage();
         }
 
     }
