@@ -14,6 +14,9 @@ namespace HurtomFiles.Logic
         public readonly List<FileInformation> values = new List<FileInformation>();
         public readonly List<string> umis;
 
+        public string ThisPage { private set; get; }
+        public string NextPage { private set; get; }
+
         public FileInformation this[int i] 
             => values[i];
 
@@ -21,8 +24,12 @@ namespace HurtomFiles.Logic
 
         public FileInformationCollection(string uri) 
         {
-           var htmlDocument = new HtmlDocument().HtmlDocumentLoadAsync(uri).Result;
-           SetValues(htmlDocument);
+            var htmlDocument = new HtmlDocument().HtmlDocumentLoadAsync(uri).Result;
+
+            ThisPage = uri;
+            NextPage = GetNextPage(htmlDocument);
+
+            SetValues(htmlDocument);
             
         }
 
@@ -31,11 +38,15 @@ namespace HurtomFiles.Logic
             var topics = htmlDoc.DocumentNode.SelectNodes("//a[@class='topictitle']");
 
             var range = topics.Select(x => Task.Run(() => new FileInformation("https://toloka.to/" + x.GetAttributeValue("href", ""))).Result).ToArray();
-            //var range = topics.Select(x => /*"https://toloka.to/" + */x.GetAttributeValue("href", "")).ToArray();
             this.values.AddRange(range);
+        }
 
-            //var range = topics.Select(x => "https://toloka.to/" + x.GetAttributeValue("href", ""));
-            //this.umis.AddRange(range);
+        public string GetNextPage(HtmlDocument htmlDoc) 
+        {
+            var navigation = htmlDoc.DocumentNode.SelectNodes("//span[@class='navigation']/a");
+            var nextPage = navigation.Last().GetAttributeValue("href", "");
+
+            return "https://toloka.to/" + nextPage;
         }
     }
 }

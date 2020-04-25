@@ -12,9 +12,21 @@ namespace HurtomFiles.WPF
     {
         private readonly List<FileInformation> values = new List<FileInformation>();
 
+        public string NextPage { private set; get; }
+
         public FileInformationElementCollection()
         {
             this.Set();
+        }
+
+        public FileInformationElementCollection(string uri) 
+        {
+            this.Set();
+
+            var infoColl = Task.Run(() => new FileInformationCollection(uri)).Result;
+            this.NextPage = infoColl.NextPage;
+            foreach (var info in infoColl.values)
+                this.Add(info);
         }
 
         public FileInformation this[int i] => values[i];
@@ -25,6 +37,7 @@ namespace HurtomFiles.WPF
             values.Add(info);
         }
 
+        [Obsolete]
         public void AddRange(string uri) 
         {
             var infoColl = Task.Run(() => new FileInformationCollection(uri)).Result.values;
@@ -41,6 +54,16 @@ namespace HurtomFiles.WPF
             this.Margin = new Thickness(0);
         }
 
+        public void AddPage() 
+        {
+            if(this.NextPage == "") return;
+
+            var infoColl = Task.Run(() => new FileInformationCollection(NextPage)).Result;
+            NextPage = infoColl.NextPage;
+
+            foreach (var info in infoColl.values)
+                this.Add(info);
+        }
         
     }
 }
