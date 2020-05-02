@@ -18,18 +18,11 @@ namespace HurtomFiles.WPF
 
         public static bool Focused { set; get; } = false;
 
-        private FileInformationElement() : base(Brushes.WhiteSmoke, Brushes.Black,
-            thickness: new Thickness(3), margin: new Thickness(5, 5, 0, 5)){ }
-
-        public FileInformationElement(string uri) : this()
+        public FileInformationElement() : base(Brushes.WhiteSmoke, Brushes.Black,
+            thickness: new Thickness(3), margin: new Thickness(5, 5, 0, 5))
         {
-            Value = Task.Run(() => new FileInformation(uri)).Result;
-
-            this.MouseEnter += SetFocus;
-            this.MouseLeave += LostFocus;
-            this.MouseDown += ClickLink;
-
-            Set(Value);
+            this.Width = 200;
+            this.Height = 300;
         }
 
         public FileInformationElement(FileInformation info) : this()
@@ -43,9 +36,6 @@ namespace HurtomFiles.WPF
 
         private void Set(FileInformation info) 
         {
-            this.Width = 200;
-            this.Height = 300;
-
             StackPanel stack = new StackPanel();
 
             text = new TextBlock()
@@ -55,8 +45,11 @@ namespace HurtomFiles.WPF
                 FontFamily = new FontFamily("Verdana Bold"),
                 Foreground = Brushes.Black
             };
+            if (info.imageUri != "") 
+            {
+                stack.Children.Add(SetImage(new Uri(info.imageUri), this.Height - 60));
+            }
 
-            stack.Children.Add(SetImage(new Uri(info.imageUri), this.Height - 60));
             stack.Children.Add(text);
             this.Child = stack;
         }

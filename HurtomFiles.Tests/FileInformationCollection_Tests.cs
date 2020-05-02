@@ -12,7 +12,8 @@ namespace HurtomFiles.Tests
     public class FileInformationCollection_Tests
     {
         [TestCase("https://toloka.to/f16")]
-        public void FileInformationCollectionTest(string uri) 
+        [Category("CreateTime_Tests")]
+        public void FileInformationCollection_CreateTime_Test(string uri) 
         {
             var fileInfoCollection = new FileInformationCollection(uri);
         }

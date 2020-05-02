@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HurtomFiles.Logic
 {
+    [Obsolete]
     public class FileInformationCollection
     {
         public readonly List<FileInformation> values = new List<FileInformation>();
