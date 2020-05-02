@@ -21,6 +21,8 @@ namespace HurtomFiles.WPF
         private FileInformationElementCollection elements;
 
         // TODO: it's work, but slow
+        // TODO: https://toloka.to/t51625 info not found
+        // TODO: https://toloka.to/t109534 image not load
         public MainWindow()
         {
             InitializeComponent();
@@ -30,16 +32,20 @@ namespace HurtomFiles.WPF
 
             var elementsPanel = new StackPanel();
             var addMoreElement = new AddMoreElements_Button();
-
+            var loadingElement = new LoadingElement();
             addMoreElement.Click += AddMoreElements_Button_Click;
+            
 
+            //elementsPanel.Background = BorderBrush.Tr
             elementsPanel.Children.Add(elements);
             elementsPanel.Children.Add(addMoreElement);
+            elementsPanel.Children.Add(loadingElement);
+           // elementsPanel.Children.Add(loadingElement.LoadingElement_Rotate());
 
             var scroll = new ScrollViewer() { Content = elementsPanel };
 
             this.HeaderGrid.Children.Add(new HeaderElement());
-            this.SideBar.Children.Add(new SideBarElement());
+            //this.SideBar.Children.Add(new SideBarElement());
             this.MainGrid.Children.Add(scroll);
         }
 
@@ -53,7 +59,7 @@ namespace HurtomFiles.WPF
 
         private void AddMoreElements_Button_Click(object sender, EventArgs e) 
         {
-            elements.AddPage();
+            Task.Run(() => elements.AddPage());
         }
 
     }

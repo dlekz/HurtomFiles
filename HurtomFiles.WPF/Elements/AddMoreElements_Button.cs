@@ -18,7 +18,7 @@ namespace HurtomFiles.WPF
             this.Width = 200;
             this.FontSize = 15;
             this.Content = "Дивитися більше";
-            this.Margin = new Thickness(5);
+            this.Margin = new Thickness(5, 50, 5, 50);
             this.Padding = new Thickness(5);
         }
     }

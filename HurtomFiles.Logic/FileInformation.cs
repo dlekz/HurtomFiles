@@ -27,15 +27,26 @@ namespace HurtomFiles.Logic
 
         public void SetFields(HtmlDocument htmlDocument) 
         {
-            var nav = htmlDocument.DocumentNode.SelectNodes("//td[@class='bodyline']/table")[2];
-            var postbody = htmlDocument.DocumentNode.SelectNodes("//span[@class='postbody']").First();
+            try
+            {
+                var nav = htmlDocument.DocumentNode.SelectNodes("//td[@class='bodyline']/table")[2];
+                var postbody = htmlDocument.DocumentNode.SelectNodes("//span[@class='postbody']").First();
 
-            this.title = new Title(htmlDocument.GetHtmlElement("//a[@class='maintitle']"));
-            this.type = string.Join(" » ", (nav.FindNode("a")
-                .Skip(2).Select(el => el.InnerText.Trim())));
-            this.imageUri = "https:" + postbody.FindNode("img")
-                .First().Attributes["src"].Value;
-            this.information = "";
+                this.title = new Title(htmlDocument.GetHtmlElement("//a[@class='maintitle']"));
+                this.type = string.Join(" » ", (nav.FindNode("a")
+                    .Skip(2).Select(el => el.InnerText.Trim())));
+                this.imageUri = "https:" + postbody.FindNode("img")
+                    .First().Attributes["src"].Value;
+                this.information = "";
+            }
+            catch (Exception ex) 
+            {
+                this.title = new Title("file not found");
+                this.imageUri = "";
+                this.type = "";
+                this.information = "";
+            }
+
         }
 
         public override bool Equals(object obj)
