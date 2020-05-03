@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using HtmlAgilityPack;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HurtomFiles.Logic
 {
@@ -38,6 +39,17 @@ namespace HurtomFiles.Logic
             var nextPage = navigation.Last().GetAttributeValue("href", "");
 
             return "https://toloka.to/" + nextPage;
+        }
+
+        // TODO: logicaly it is not this class
+        public List<FileInformation> GetFileInformationCollection()
+        {
+            var range = new List<FileInformation>();
+            for (int i = 0; i < this.Count; i++)
+            {
+                range.Add(Task.Run(() => new FileInformation(this[i])).Result);
+            }
+            return range;
         }
     }
 }

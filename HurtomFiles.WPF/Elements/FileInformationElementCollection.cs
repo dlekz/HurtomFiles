@@ -13,34 +13,33 @@ namespace HurtomFiles.WPF
     {
         private readonly List<FileInformation> values = new List<FileInformation>();
 
-        private List<FileInformation> buffer;
+        private FileInformationBuffer Buffer { set; get; } = new FileInformationBuffer();
 
-        private bool isBuffering = false;
-
-        public string NextPage { private set; get; }
+        [Obsolete("Use Buffer.Page")] public string NextPage { private set; get; }
 
         public FileInformationElementCollection()
         {
             this.Set();
         }
 
-        public FileInformationElementCollection(string uri) 
+        public FileInformationElementCollection(string uri)
         {
             this.Set();
 
-            var infoColl = Task.Run(() => new FileInformationCollection(uri)).Result;
-            this.NextPage = infoColl.NextPage;
-            foreach (var info in infoColl.values)
+            var infoColl = Task.Run(() => new FileInformationLinkPage(uri)).Result;
+
+            foreach (var info in infoColl.GetFileInformationCollection())
                 this.Add(info);
 
-            Buffering();
+            Buffer.Page = infoColl.NextPage;
+            //Buffer.Page = this.NextPage;
+            Buffer.Buffering();
         }
 
         public FileInformation this[int i] => values[i];
 
         public void Add(FileInformation info)
         {
-            //Dispatcher.InvokeAsync(() => this.Children.Add(new FileInformationElement(info)));
             Application.Current.Dispatcher.Invoke(() => this.Children.Add(new FileInformationElement(info)));
             values.Add(info);
         }
@@ -53,75 +52,31 @@ namespace HurtomFiles.WPF
             this.Margin = new Thickness(0);
         }
 
-        public void _AddPage() 
-        {
-            if (this.NextPage == "") return;
-
-            var links = Task.Run(() => new FileInformationLinkPage(NextPage)).Result;
-
-            for (int i = 0; i < links.Count; i++) 
-            {
-                var fileInformation = Task.Run(() => new FileInformation(links[i])).Result;
-                this.Add(fileInformation);
-            }
-        }
-
         public void AddPage()
         {
 
-                if (this.NextPage == "") return;
+            var page = Buffer.Page;
 
-                var links = Task.Run(() => new FileInformationLinkPage(NextPage)).Result;
+            if (Buffer.Page == "") return;
 
-                //var FileIngormationElementsList = new List<FileInformationElement>();
-                //foreach ()
+            var links = Task.Run(() => new FileInformationLinkPage(Buffer.Page)).Result;
 
-                //Dispatcher.InvokeAsync(() => this.Children.Add(new FileInformationElement()));
-
-                //for (int i = 0; i < links.Count; i++)
-                //{
-                //    var fileInformation = Task.Run(() => new FileInformation(links[i])).Result;
-
-                //    Dispatcher.InvokeAsync(() => this.Children.Add(new FileInformationElement(fileInformation)));
-
-                //    values.Add(fileInformation);
-                //}
-
-                if (!isBuffering || buffer.Count == 0)
-                {
-                    MessageBox.Show("Buffer is not available");
-                    return;
-                }
-
-                for (int i = 0; i < buffer.Count; i++)
-                {
-                    Application.Current.Dispatcher.Invoke(() => this.Children.Add(new FileInformationElement(buffer[i])));
-                }
-
-                values.AddRange(buffer);
-
-                Buffering();
-
-        }
-
-        public void Buffering() 
-        {
-            isBuffering = false;
-            buffer = new List<FileInformation>();
-            if (this.NextPage == "") return;
-
-            var links = Task.Run(() => new FileInformationLinkPage(NextPage)).Result;
-            this.NextPage = links.NextPage;
-
-            for (int i = 0; i < links.Count; i++)
+            if (!Buffer.IsBuffering || Buffer.Count == 0)
             {
-                var fileInformation = Task.Run(() => new FileInformation(links[i])).Result;
-
-                buffer.Add(fileInformation);
+                MessageBox.Show("Buffer is not available");
+                return;
             }
 
-            //MessageBox.Show(string.Join(",",buffer.Select(x => x.source)));
-            isBuffering = true;
+            //Buffer.IsBuffering = true;
+
+            for (int i = 0; i < Buffer.Count; i++)
+            {
+                var value = Buffer[i];
+                Application.Current.Dispatcher.Invoke(() => this.Children.Add(new FileInformationElement(value)));
+                values.Add(value);
+            }
+
+            Buffer.Buffering();
         }
     }
 }

@@ -7,11 +7,11 @@ namespace HurtomFiles.Logic
 {
     public struct FileInformation
     {
-        public Title title;
         public string type;
         public string imageUri;
         public string information;
         public string source;
+        public Title title;
 
         public FileInformation(string uri)
         {
@@ -57,6 +57,11 @@ namespace HurtomFiles.Logic
                     return true;
             }
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
         }
     }
 }

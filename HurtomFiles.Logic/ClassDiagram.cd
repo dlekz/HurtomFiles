@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="HtmlAgilityPackExtensions">
+    <Position X="10" Y="1.75" Height="0.291" Width="4.283" />
+  </Comment>
+  <Class Name="HurtomFiles.Logic.HtmlDocumentExtensions">
+    <Position X="10" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HtmlAgilityPackExtensions\HtmlDocumentExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HurtomFiles.Logic.HtmlNodeExtensions">
+    <Position X="12.25" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>HtmlAgilityPackExtensions\HtmlNodeExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HurtomFiles.Logic.FileInformationLinkPage">
+    <Position X="1.5" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAACAAAAAQAAACJACAAAAAAgAAAAAA=</HashCode>
+      <FileName>FileInformationLinkPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HurtomFiles.Logic.FileInformationBuffer">
+    <Position X="1.5" Y="0.75" Width="2" />
+    <AssociationLine Name="buffer" Type="HurtomFiles.Logic.FileInformation">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.475" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAAQAAIgCAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>FileInformationBuffer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="buffer" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Struct Name="HurtomFiles.Logic.Title">
+    <Position X="7.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAABAAAAQECAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Title.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="HurtomFiles.Logic.FileInformation">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAQBAAAAIAgAAAAAAAAAABAIAAAAAIAAAAAAA=</HashCode>
+      <FileName>FileInformation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="title" />
+    </ShowAsAssociation>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
