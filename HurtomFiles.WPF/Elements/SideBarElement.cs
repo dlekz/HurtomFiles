@@ -7,11 +7,11 @@ using System.Windows.Media;
 
 namespace HurtomFiles.WPF
 {
-    public class SideBarElement : Element
+    public class SideBarElement :Element
     {
         public SideBarElement() : base() => Set();
 
-        private void Set() 
+        private void Set()
         {
         }
     }

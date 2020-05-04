@@ -7,31 +7,31 @@ using HurtomFiles.Logic;
 namespace HurtomFiles.Tests
 {
     [TestFixture]
-    class FileInformationLinkPage_Tests
+    class FileLinkPage_Tests
     {
         [TestCase("https://toloka.to/f16")]
         [Category("CreateTime_Tests")]
         public void FileInformationLinkPage_CreateTime(string uri) 
         {
-            var linkPage = new FileInformationLinkPage(uri);
+            var linkPage = new FileLinkPage(uri);
         }
 
         [TestCase("https://toloka.to/f16", 45)]
         [Category("Count_Tests")]
-        public void FileInformationLinkPage_Count(string uri, int count)
+        public void FileLinkPage_Count(string uri, int count)
         {
-            var fileInfoCollection = new FileInformationLinkPage(uri);
+            var fileInfoCollection = new FileLinkPage(uri);
 
             Assert.AreEqual(count, fileInfoCollection.Count);
         }
 
         [TestCase("https://toloka.to/f16", "https://toloka.to/f16-45")]
         [Category("NextPage_Tests")]
-        public void FileInformationLinkPage_NextPage(string thisPage, string nextPage)
+        public void FileLinkPage_NextPage(string thisPage, string nextPage)
         {
-            var fileInfoCollection = new FileInformationLinkPage(thisPage);
+            var fileInfoCollection = new FileLinkPage(thisPage);
 
-            Assert.AreEqual(nextPage, fileInfoCollection.NextPage);
+            Assert.AreEqual(nextPage, fileInfoCollection.NextPage.ToString());
         }
     }
 }

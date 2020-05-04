@@ -4,7 +4,7 @@ using HurtomFiles.Logic;
 namespace HurtomFiles.Tests
 {
     [TestFixture]
-    public class FileInformation_Tests
+    public class FilePage_Tests
     {
         [TestCase("https://toloka.to/t108863",
             "1917 / 1917 (2019) AVC Ukr/Eng | sub Eng",
@@ -16,9 +16,9 @@ namespace HurtomFiles.Tests
             "Толока » Відео » HD українською » Фільми в HD",
             "https://posters.hurtom.com/cache/movies/alpha-2018-_550.jpg")]
         [Category("Create_Tests")]
-        public void FileInformation_Create(string url, string title, string type, string imgUrl)
+        public void FilePage_Create(string url, string title, string type, string imgUrl)
         {
-            var fileInfo = new FileInformation(url);
+            var fileInfo = new FilePage(url);
 
             Assert.AreEqual(fileInfo.title.fullTitle, title);
             Assert.AreEqual(fileInfo.type, type);

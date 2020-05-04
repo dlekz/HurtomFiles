@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="HtmlAgilityPackExtensions">
+    <Position X="2" Y="7.25" Height="0.291" Width="4.283" />
+  </Comment>
+  <Class Name="HurtomFiles.Logic.HtmlDocumentExtensions">
+    <Position X="2" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HtmlAgilityPackExtensions\HtmlDocumentExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HurtomFiles.Logic.HtmlNodeExtensions">
+    <Position X="4.25" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>HtmlAgilityPackExtensions\HtmlNodeExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HurtomFiles.Logic.FileLinkPage">
+    <Position X="0.5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAQAAAAIAAgAAAAAgAAAAAA=</HashCode>
+      <FileName>FileLinkPage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="links" />
+      <Property Name="ThisPage" />
+      <Property Name="NextPage" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HurtomFiles.Logic.FileBuffer">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <AssociationLine Name="buffer" Type="HurtomFiles.Logic.FilePage">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.475" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAgAIAAQAAJgCAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>FileBuffer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Page" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="buffer" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Struct Name="HurtomFiles.Logic.Title">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAABAAAAQECAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Title.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="HurtomFiles.Logic.FilePage">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="source" Type="HurtomFiles.Logic.Link" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="2.375" />
+        <Point X="5" Y="2.375" />
+        <Point X="5" Y="3.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.048" Y="0.466" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAQBAAAAIAgAAAAAAAAAABAIAAAAAIAAAAAAA=</HashCode>
+      <FileName>FilePage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="title" />
+      <Field Name="source" />
+    </ShowAsAssociation>
+  </Struct>
+  <Struct Name="HurtomFiles.Logic.Link">
+    <Position X="3.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAEgAAAAAAAAAAAAKAAAAAAAAAAAiA=</HashCode>
+      <FileName>Link.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
