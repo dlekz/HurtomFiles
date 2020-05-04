@@ -4,13 +4,8 @@ using HurtomFiles.Logic;
 namespace HurtomFiles.Tests
 {
     [TestFixture]
-    public class HtmlFileTests
+    public class FilePage_Tests
     {
-        [TestCase("https://toloka.to/t97235",
-            "Зоряні Війни: Сага / Star Wars: The Complete Saga (1977-2019)",
-            "Толока » Відео » Українське озвучення » Фільми",
-            "https://img.hurtom.com/i/2016/02/StarWars0.550px.jpg")]
-
         [TestCase("https://toloka.to/t108863",
             "1917 / 1917 (2019) AVC Ukr/Eng | sub Eng",
             "Толока » Відео » Українське озвучення » Фільми",
@@ -20,9 +15,10 @@ namespace HurtomFiles.Tests
             "Альфа / Alpha (2018) Remux 1080p Ukr/Eng | Sub Ukr/Eng",
             "Толока » Відео » HD українською » Фільми в HD",
             "https://posters.hurtom.com/cache/movies/alpha-2018-_550.jpg")]
-        public void FileInformationTest(string url, string title, string type, string imgUrl)
+        [Category("Create_Tests")]
+        public void FilePage_Create(string url, string title, string type, string imgUrl)
         {
-            var fileInfo = new FileInformation(url);
+            var fileInfo = new FilePage(url);
 
             Assert.AreEqual(fileInfo.title.fullTitle, title);
             Assert.AreEqual(fileInfo.type, type);

@@ -13,8 +13,9 @@ namespace HurtomFiles.WPF
     public class FileInformationElement : Element
     {
 
-        private FileInformation Value { set; get;}
+        private readonly FilePage source;
         private TextBlock text;
+
 
         public static bool Focused { set; get; } = false;
 
@@ -25,16 +26,16 @@ namespace HurtomFiles.WPF
             this.Height = 300;
         }
 
-        public FileInformationElement(FileInformation info) : this()
+        public FileInformationElement(FilePage info) : this()
         {
-            Value = info;
+            source = info;
             this.MouseEnter += SetFocus;
             this.MouseLeave += LostFocus;
             this.MouseDown += ClickLink;
-            Set(info); 
+            Set(info);
         }
 
-        private void Set(FileInformation info) 
+        private void Set(FilePage info)
         {
             StackPanel stack = new StackPanel();
 
@@ -45,7 +46,7 @@ namespace HurtomFiles.WPF
                 FontFamily = new FontFamily("Verdana Bold"),
                 Foreground = Brushes.Black
             };
-            if (info.imageUri != "") 
+            if (info.imageUri != "")
             {
                 stack.Children.Add(SetImage(new Uri(info.imageUri), this.Height - 60));
             }
@@ -62,25 +63,25 @@ namespace HurtomFiles.WPF
                 Height = height,
             };
 
-        private void SetFocus(object sender, EventArgs e) 
+        private void SetFocus(object sender, EventArgs e)
         {
             this.BorderBrush = Brushes.Green;
             this.text.Foreground = Brushes.Green;
             Focused = true;
         }
 
-        private void LostFocus(object sender, EventArgs e) 
+        private void LostFocus(object sender, EventArgs e)
         {
             this.BorderBrush = Brushes.Black;
             this.text.Foreground = Brushes.Black;
             Focused = false;
         }
 
-        private void ClickLink(object sender, EventArgs e) 
+        private void ClickLink(object sender, EventArgs e)
         {
             var psi = new ProcessStartInfo
             {
-                FileName = Value.source,
+                FileName = source.source.ToString(),
                 UseShellExecute = true
             };
             Process.Start(psi);

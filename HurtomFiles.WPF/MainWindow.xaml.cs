@@ -18,7 +18,11 @@ namespace HurtomFiles.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private FileInformationElementCollection elements;
+        private readonly FileElementPanel elements;
+        private readonly AddMoreElements_Button addMoreElement = new AddMoreElements_Button();
+        private readonly LoadingElement loadingElement = new LoadingElement();
+        private readonly SideBarElement sideBarElement = new SideBarElement();
+        private readonly HeaderElement headerElement = new HeaderElement();
 
         // TODO: it's work, but slow
         // TODO: https://toloka.to/t51625 info not found
@@ -27,15 +31,13 @@ namespace HurtomFiles.WPF
         {
             InitializeComponent();
             this.MouseMove += CursorChange;
+            this.addMoreElement.Click += AddMoreElements_Button_Click;
 
-            elements = new FileInformationElementCollection("https://toloka.to/f16");
+            elements = new FileElementPanel("https://toloka.to/f16");
 
             var elementsPanel = new StackPanel();
-            var addMoreElement = new AddMoreElements_Button();
             var loadingElement = new LoadingElement();
-            addMoreElement.Click += AddMoreElements_Button_Click;
             
-
             //elementsPanel.Background = BorderBrush.Tr
             elementsPanel.Children.Add(elements);
             elementsPanel.Children.Add(addMoreElement);
@@ -44,7 +46,7 @@ namespace HurtomFiles.WPF
 
             var scroll = new ScrollViewer() { Content = elementsPanel };
 
-            this.HeaderGrid.Children.Add(new HeaderElement());
+            this.HeaderGrid.Children.Add(headerElement);
             //this.SideBar.Children.Add(new SideBarElement());
             this.MainGrid.Children.Add(scroll);
         }

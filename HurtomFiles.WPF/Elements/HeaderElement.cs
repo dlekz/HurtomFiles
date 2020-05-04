@@ -14,7 +14,7 @@ namespace HurtomFiles.WPF
     {
         public HeaderElement() : base() => Set();
 
-        private void Set() 
+        private void Set()
         {
             StackPanel stack = new StackPanel()
             {

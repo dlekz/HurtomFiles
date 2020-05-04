@@ -5,21 +5,21 @@ using HtmlAgilityPack;
 
 namespace HurtomFiles.Logic
 {
-    public struct FileInformation
+    public struct FilePage
     {
-        public Title title;
         public string type;
         public string imageUri;
         public string information;
-        public string source;
+        public Title title;
+        public Link source;
 
-        public FileInformation(string uri)
+        public FilePage(string uri)
         {
             this.title = new Title();
             this.type = "";
             this.imageUri = "";
             this.information = "";
-            this.source = uri;
+            this.source = new Link(uri);
 
             var htmlDocument = new HtmlDocument().HtmlDocumentLoadAsync(uri).Result;
             SetFields(htmlDocument);
@@ -51,12 +51,17 @@ namespace HurtomFiles.Logic
 
         public override bool Equals(object obj)
         {
-            if (obj is FileInformation fi) 
+            if (obj is FilePage fi) 
             {
                 if (fi.title.ToString() == this.title.ToString())
                     return true;
             }
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
         }
     }
 }
