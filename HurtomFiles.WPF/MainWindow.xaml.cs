@@ -30,30 +30,30 @@ namespace HurtomFiles.WPF
         public MainWindow()
         {
             InitializeComponent();
-            this.MouseMove += CursorChange;
+            //this.MouseMove += CursorChange;
             this.addMoreElement.Click += AddMoreElements_Button_Click;
 
             elements = new FileElementPanel("https://toloka.to/f16");
 
             var elementsPanel = new StackPanel();
-            var loadingElement = new LoadingElement();
-            
-            //elementsPanel.Background = BorderBrush.Tr
+
             elementsPanel.Children.Add(elements);
             elementsPanel.Children.Add(addMoreElement);
-            elementsPanel.Children.Add(loadingElement);
+           // elementsPanel.Children.Add(loadingElement);
            // elementsPanel.Children.Add(loadingElement.LoadingElement_Rotate());
 
             var scroll = new ScrollViewer() { Content = elementsPanel };
 
             this.HeaderGrid.Children.Add(headerElement);
-            //this.SideBar.Children.Add(new SideBarElement());
+            //this.SideBar.Children.Add(sideBarElement);
             this.MainGrid.Children.Add(scroll);
+
+            Task.Run(() => elements.Buffering(9));
         }
 
         private void CursorChange(object sender, EventArgs e) 
         {
-            if (FileInformationElement.Focused)
+            if (FileElement.Focused)
                 this.Cursor = Cursors.Hand;
             else
                 this.Cursor = Cursors.Arrow;

@@ -1,37 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Comment CommentText="HurtomFiles.Logic">
-    <Position X="1.246" Y="7.79" Height="0.291" Width="5.246" />
+    <Position X="1.246" Y="8.29" Height="0.291" Width="5.246" />
   </Comment>
   <Class Name="HurtomFiles.WPF.Element">
-    <Position X="8.75" Y="4.5" Width="1.5" />
+    <Position X="7.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Elements\Element.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HurtomFiles.WPF.FileInformationElement">
-    <Position X="4.75" Y="4.25" Width="2" />
-    <AssociationLine Name="source" Type="HurtomFiles.Logic.FilePage">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.072" Y="0.685" />
-      </MemberNameLabel>
-    </AssociationLine>
+  <Class Name="HurtomFiles.WPF.FileElement">
+    <Position X="4.75" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAhAIAAAAAACEAAAAAAAAIAAAAAAABAAA=</HashCode>
-      <FileName>Elements\FileInformationElement.cs</FileName>
+      <FileName>Elements\FileElement.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="source" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="HurtomFiles.WPF.HeaderElement">
-    <Position X="4.75" Y="2.5" Width="1.5" />
+    <Position X="4.75" Y="3" Width="1.5" />
     <InheritanceLine Type="HurtomFiles.WPF.Element" ManuallyRouted="true" FixedToPoint="true">
       <Path>
-        <Point X="9.5" Y="4.5" />
-        <Point X="9.5" Y="4" />
-        <Point X="6.25" Y="4" />
+        <Point X="8.5" Y="5" />
+        <Point X="8.5" Y="4.5" />
+        <Point X="6.25" Y="4.5" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -40,12 +32,12 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HurtomFiles.WPF.SideBarElement">
-    <Position X="6.5" Y="2.5" Width="1.5" />
+    <Position X="6.5" Y="3" Width="1.5" />
     <InheritanceLine Type="HurtomFiles.WPF.Element" FixedToPoint="true">
       <Path>
-        <Point X="9.5" Y="4.5" />
-        <Point X="9.5" Y="3.125" />
-        <Point X="8" Y="3.125" />
+        <Point X="8.5" Y="5" />
+        <Point X="8.5" Y="3.625" />
+        <Point X="8" Y="3.625" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -54,39 +46,42 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HurtomFiles.WPF.FileElementPanel">
-    <Position X="0.75" Y="4.25" Width="2.5" />
+    <Position X="0.75" Y="4.75" Width="2.5" />
     <AssociationLine Name="Buffer" Type="HurtomFiles.Logic.FileBuffer">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.06" Y="1.595" />
+        <Position X="0.081" Y="0.574" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAAAAEQAA=</HashCode>
+      <HashCode>AAIAAAAAAAAABAAAAAAQAAAAAAAAgAAAAAAAAAAEQAA=</HashCode>
       <FileName>Elements\FileElementPanel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Buffer" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Elements" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HurtomFiles.WPF.AddMoreElements_Button">
-    <Position X="6.5" Y="0.5" Width="2.75" />
+    <Position X="6.5" Y="1" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Elements\AddMoreElements_Button.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HurtomFiles.WPF.MainWindow">
-    <Position X="0.75" Y="0.5" Width="2.5" />
+    <Position X="0.75" Y="1" Width="2.5" />
     <AssociationLine Name="sideBarElement" Type="HurtomFiles.WPF.SideBarElement" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.164" Y="2.117" />
-        <Point X="1.164" Y="2.3" />
-        <Point X="1.737" Y="2.3" Type="JumpStart" />
-        <Point X="1.904" Y="2.3" Type="JumpEnd" />
-        <Point X="2.393" Y="2.3" Type="JumpStart" />
-        <Point X="2.56" Y="2.3" Type="JumpEnd" />
-        <Point X="7.5" Y="2.3" />
-        <Point X="7.5" Y="2.5" />
+        <Point X="1.164" Y="2.617" />
+        <Point X="1.164" Y="2.8" />
+        <Point X="1.602" Y="2.8" Type="JumpStart" />
+        <Point X="1.769" Y="2.8" Type="JumpEnd" />
+        <Point X="2.186" Y="2.8" Type="JumpStart" />
+        <Point X="2.353" Y="2.8" Type="JumpEnd" />
+        <Point X="7.5" Y="2.8" />
+        <Point X="7.5" Y="3" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.11" Y="0.06" />
@@ -100,24 +95,24 @@
       <Field Name="elements" />
       <Field Name="addMoreElement" />
       <Field Name="loadingElement" />
-      <Field Name="headerElement" />
       <Field Name="sideBarElement" />
+      <Field Name="headerElement" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HurtomFiles.WPF.LoadingElement">
-    <Position X="4.75" Y="0.5" Width="1.5" />
+    <Position X="4.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Elements\LoadingElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HurtomFiles.Logic.FileBuffer" Collapsed="true">
-    <Position X="1.25" Y="8.25" Width="1.5" />
+    <Position X="1.25" Y="8.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="HurtomFiles.Logic.FilePage" Collapsed="true">
-    <Position X="5" Y="8.25" Width="1.5" />
+    <Position X="5" Y="8.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />

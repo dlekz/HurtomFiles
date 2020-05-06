@@ -12,11 +12,7 @@ namespace HurtomFiles.WPF
     public class FileElementPanel : WrapPanel
     {
         private FileBuffer Buffer { set; get; } = new FileBuffer();
-
-        public FileElementPanel()
-        {
-            this.Set();
-        }
+        public List<FileElement> Elements { private set; get; } = new List<FileElement>();
 
         public FileElementPanel(string uri)
         {
@@ -24,16 +20,18 @@ namespace HurtomFiles.WPF
 
             var infoColl = Task.Run(() => new FileLinkPage(uri)).Result;
 
-            foreach (var info in infoColl.GetFileCollection())
-                this.Add(info);
+            Buffer.Page = new Link(uri);
+            Buffer.Buffering();
+            this.AddRange(Buffer.Get);
 
             Buffer.Page = new Link(infoColl.NextPage.ToString());
-            Buffer.Buffering();
+            //Buffer.Buffering();
         }
 
         public void Add(FilePage info)
         {
-            Application.Current.Dispatcher.Invoke(() => this.Children.Add(new FileInformationElement(info)));
+            Application.Current.Dispatcher.Invoke(() => this.Children.Add(new FileElement(info)));
+            Application.Current.Dispatcher.Invoke(() => Elements.Add(new FileElement(info)));
         }
 
         public void AddRange(FilePage[] files) 
@@ -56,16 +54,16 @@ namespace HurtomFiles.WPF
             {
                 Buffer.Check();
                 this.AddRange(Buffer.Get);
-                Buffer.Buffering();
+                Buffer.Buffering(9);
             }
-            catch (FileBufferException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (Exception ex) 
-            {
-                MessageBox.Show(ex.Source);
-            }
         }
+
+        public void Buffering() => Buffer.Buffering();
+
+        public void Buffering(int count) => Buffer.Buffering(count);
     }
 }

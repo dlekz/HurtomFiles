@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace HurtomFiles.WPF
 {
-    public class FileInformationElement : Element
+    public class FileElement : Element
     {
 
         private readonly FilePage source;
@@ -19,14 +19,14 @@ namespace HurtomFiles.WPF
 
         public static bool Focused { set; get; } = false;
 
-        public FileInformationElement() : base(Brushes.WhiteSmoke, Brushes.Black,
+        public FileElement() : base(Brushes.WhiteSmoke, Brushes.Black,
             thickness: new Thickness(3), margin: new Thickness(5, 5, 0, 5))
         {
             this.Width = 200;
             this.Height = 300;
         }
 
-        public FileInformationElement(FilePage info) : this()
+        public FileElement(FilePage info) : this()
         {
             source = info;
             this.MouseEnter += SetFocus;

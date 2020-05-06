@@ -15,7 +15,7 @@ namespace HurtomFiles.Logic
         public Link ThisPage { private set; get; }
         public Link NextPage { private set; get; }
         public int Count => links.Count();
-
+        // TODO: if i > links.Count
         public string this[int i] => links[i].ToString();
 
         public FileLinkPage(string uri) 
@@ -27,17 +27,6 @@ namespace HurtomFiles.Logic
             ThisPage = new Link(uri);
             NextPage = new Link(navigation.Last().GetAttributeValue("href", ""));
             links = topics.Select(x => new Link(x.GetAttributeValue("href", ""))).ToArray();
-        }
-
-        // TODO: logicaly it is not this class
-        public List<FilePage> GetFileCollection()
-        {
-            var range = new List<FilePage>();
-            for (int i = 0; i < this.Count; i++)
-            {
-                range.Add(Task.Run(() => new FilePage(this[i])).Result);
-            }
-            return range;
         }
     }
 }
