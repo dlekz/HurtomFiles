@@ -7,17 +7,20 @@ using System.Windows.Media.Imaging;
 using HurtomFiles.Logic;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using HurtomFiles.WPF.Elements;
 
 namespace HurtomFiles.WPF
 {
     public class FileElement : Element
     {
 
-        private readonly FilePage source;
+        public readonly FilePage source;
         private TextBlock text;
 
+        public StarElement star = new StarElement();
 
-        public static bool Focused { set; get; } = false;
+
+        public bool Focused { set; get; } = false;
 
         public FileElement() : base(Brushes.WhiteSmoke, Brushes.Black,
             thickness: new Thickness(3), margin: new Thickness(5, 5, 0, 5))
@@ -31,14 +34,13 @@ namespace HurtomFiles.WPF
             source = info;
             this.MouseEnter += SetFocus;
             this.MouseLeave += LostFocus;
-            this.MouseDown += ClickLink;
             Set(info);
         }
 
         private void Set(FilePage info)
-        {
+        {          
             StackPanel stack = new StackPanel();
-
+            //stack.Children.Add(star);
             text = new TextBlock()
             {
                 Text = info.title.ToString(),
@@ -52,7 +54,15 @@ namespace HurtomFiles.WPF
             }
 
             stack.Children.Add(text);
-            this.Child = stack;
+
+            Grid grid = new Grid();
+
+            grid.Children.Add(stack);
+            grid.Children.Add(star);
+
+            Grid.SetZIndex(star, 10);
+
+            this.Child = grid;
         }
 
         private Image SetImage(Uri uri, double height) =>
@@ -75,16 +85,6 @@ namespace HurtomFiles.WPF
             this.BorderBrush = Brushes.Black;
             this.text.Foreground = Brushes.Black;
             Focused = false;
-        }
-
-        private void ClickLink(object sender, EventArgs e)
-        {
-            var psi = new ProcessStartInfo
-            {
-                FileName = source.source.ToString(),
-                UseShellExecute = true
-            };
-            Process.Start(psi);
         }
     }
 }
