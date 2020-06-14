@@ -18,9 +18,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HurtomFiles.Logic.FileLinkPage">
-    <Position X="0.5" Y="3.5" Width="2" />
+    <Position X="0.5" Y="4" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAACAAAAAQAAAAIAAgAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAQAAAAIAAAAAAAAgAAAAAA=</HashCode>
       <FileName>FileLinkPage.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -37,7 +37,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAAgAIAAQAAJgCAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <HashCode>AAACAAgAIAAQAAJgCACAAAQAAAAAAAAAAABAgAAAQAA=</HashCode>
       <FileName>FileBuffer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -63,7 +63,7 @@
         <Point X="5" Y="3.5" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.048" Y="0.466" />
+        <Position X="-0.702" Y="1.226" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>

@@ -18,11 +18,11 @@ namespace HurtomFiles.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly FileElementPanel elements;
-        private readonly AddMoreElements_Button addMoreElement = new AddMoreElements_Button();
+        private readonly Body elements;
+        private readonly AddMoreElements_Button addMoreElements = new AddMoreElements_Button();
         private readonly LoadingElement loadingElement = new LoadingElement();
-        private readonly SideBarElement sideBarElement = new SideBarElement();
-        private readonly HeaderElement headerElement = new HeaderElement();
+        private readonly SideBar sideBarElement = new SideBar();
+        private readonly Header headerElement = new Header();
 
         // TODO: it's work, but slow
         // TODO: https://toloka.to/t51625 info not found
@@ -31,29 +31,33 @@ namespace HurtomFiles.WPF
         {
             InitializeComponent();
             this.MouseMove += CursorChange;
-            this.addMoreElement.Click += AddMoreElements_Button_Click;
+            this.addMoreElements.Click += AddMoreElements_Button_Click;
+            this.sideBarElement.ShowElements_Button.Click += ShowElements_Button_Click;
+            this.sideBarElement.ShowFavorites_Button.Click += ShowFavorites_Button_Click;
 
-            elements = new FileElementPanel("https://toloka.to/f16");
+            this.Closing += Before_Close;
+
+            elements = new Body("https://toloka.to/f16");
 
             var elementsPanel = new StackPanel();
-            var loadingElement = new LoadingElement();
-            
-            //elementsPanel.Background = BorderBrush.Tr
+
             elementsPanel.Children.Add(elements);
-            elementsPanel.Children.Add(addMoreElement);
-            elementsPanel.Children.Add(loadingElement);
-           // elementsPanel.Children.Add(loadingElement.LoadingElement_Rotate());
+            elementsPanel.Children.Add(addMoreElements);
+
 
             var scroll = new ScrollViewer() { Content = elementsPanel };
 
             this.HeaderGrid.Children.Add(headerElement);
-            //this.SideBar.Children.Add(new SideBarElement());
+            this.SideBar.Children.Add(sideBarElement);
             this.MainGrid.Children.Add(scroll);
+
+            Task.Run(() => elements.Buffering(9));
+            headerElement.WriteTimer();
         }
 
         private void CursorChange(object sender, EventArgs e) 
         {
-            if (FileInformationElement.Focused)
+            if (elements.Focused)
                 this.Cursor = Cursors.Hand;
             else
                 this.Cursor = Cursors.Arrow;
@@ -62,6 +66,23 @@ namespace HurtomFiles.WPF
         private void AddMoreElements_Button_Click(object sender, EventArgs e) 
         {
             Task.Run(() => elements.AddPage());
+        }
+
+        private void ShowElements_Button_Click(object sender, EventArgs e) 
+        {
+            elements.Show(FileElementTypes.MAIN);
+            addMoreElements.Visibility = Visibility.Visible;
+        }
+
+        private void ShowFavorites_Button_Click(object sender, EventArgs e)
+        {
+            elements.Show(FileElementTypes.FAVORITES);
+            addMoreElements.Visibility = Visibility.Hidden;
+        }
+
+        private void Before_Close(object sender, EventArgs e)
+        {
+            elements.Favorites.Set();
         }
 
     }

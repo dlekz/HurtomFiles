@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
+// using System.Windows.Controls;
 using System.Collections.Generic;
-using System.Windows.Media;
+// using System.Windows.Media;
 using HurtomFiles.Logic;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Threading;
+using Avalonia.Layout;
+using MessageBox.Avalonia;
 
-namespace HurtomFiles.WPF
+namespace HurtomFiles.AvaloniaApp
 {
     public class FileElementPanel : WrapPanel
     {
         private FileBuffer Buffer { set; get; } = new FileBuffer();
-
-        public FileElementPanel()
-        {
-            this.Set();
-        }
+        public List<FileElement> Elements { private set; get; } = new List<FileElement>();
 
         public FileElementPanel(string uri)
         {
@@ -24,16 +26,20 @@ namespace HurtomFiles.WPF
 
             var infoColl = Task.Run(() => new FileLinkPage(uri)).Result;
 
-            foreach (var info in infoColl.GetFileCollection())
-                this.Add(info);
+            Buffer.Page = new Link(uri);
+            Buffer.Buffering();
+            this.AddRange(Buffer.Get);
 
             Buffer.Page = new Link(infoColl.NextPage.ToString());
-            Buffer.Buffering();
+            //Buffer.Buffering();
         }
 
         public void Add(FilePage info)
         {
-            Application.Current.Dispatcher.Invoke(() => this.Children.Add(new FileInformationElement(info)));
+            //Dispatcher.UIThread.InvokeAsync(() => this.Children.Add(new FileElement(info)));
+            //Dispatcher.UIThread.InvokeAsync(() => Elements.Add(new FileElement(info)));
+            this.Children.Add(new FileElement(info));
+            Elements.Add(new FileElement(info));
         }
 
         public void AddRange(FilePage[] files) 
@@ -56,16 +62,19 @@ namespace HurtomFiles.WPF
             {
                 Buffer.Check();
                 this.AddRange(Buffer.Get);
-                Buffer.Buffering();
+                Buffer.Buffering(9);
             }
-            catch (FileBufferException ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-            }
-            catch (Exception ex) 
-            {
-                MessageBox.Show(ex.Source);
+                //MessageBox.Show(ex.Message);
+                var msgBox = MessageBoxManager
+                    .GetMessageBoxStandardWindow("Error",ex.Message);
+                msgBox.Show();
             }
         }
+
+        public void Buffering() => Buffer.Buffering();
+
+        public void Buffering(int count) => Buffer.Buffering(count);
     }
 }

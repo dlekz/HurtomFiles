@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Media;
+//using System.Windows.Media;
 using System.Windows.Input;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+// using System.Windows.Controls;
+// using System.Windows.Media.Imaging;
 using HurtomFiles.Logic;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
-namespace HurtomFiles.WPF
+namespace HurtomFiles.AvaloniaApp
 {
-    public class FileInformationElement : Element
+    public class FileElement : Element
     {
 
         private readonly FilePage source;
@@ -19,19 +23,19 @@ namespace HurtomFiles.WPF
 
         public static bool Focused { set; get; } = false;
 
-        public FileInformationElement() : base(Brushes.WhiteSmoke, Brushes.Black,
+        public FileElement() : base((SolidColorBrush)Brushes.WhiteSmoke, (SolidColorBrush)Brushes.Black,
             thickness: new Thickness(3), margin: new Thickness(5, 5, 0, 5))
         {
             this.Width = 200;
             this.Height = 300;
         }
 
-        public FileInformationElement(FilePage info) : this()
+        public FileElement(FilePage info) : this()
         {
             source = info;
-            this.MouseEnter += SetFocus;
-            this.MouseLeave += LostFocus;
-            this.MouseDown += ClickLink;
+            //this.MouseEnter += SetFocus;
+            //this.MouseLeave += LostFocus;
+            //this.MouseDown += ClickLink;
             Set(info);
         }
 
@@ -59,7 +63,7 @@ namespace HurtomFiles.WPF
             new Image()
             {
                 Stretch = Stretch.Fill,
-                Source = new BitmapImage(uri),
+                //Source = new BitmapImage(uri),
                 Height = height,
             };
 

@@ -12,6 +12,7 @@ namespace HurtomFiles.Logic
         public bool IsBuffering { set; get; } = false;
 
         public Link Page { set; get; }
+        public Link NextPage { set; get; }
 
         public int Position { set; get; } = 0;
 
@@ -24,10 +25,8 @@ namespace HurtomFiles.Logic
 
         public void Buffering() 
         {
-            IsBuffering = false;
-            buffer = new List<FilePage>();
-
-            if (this.Page.ToString() == "") return;
+            Clean();
+            CheckPage();
 
             var links = Task.Run(() => new FileLinkPage(Page.ToString())).Result;
             this.Page = new Link(links.NextPage.ToString());
@@ -42,13 +41,53 @@ namespace HurtomFiles.Logic
             IsBuffering = true;
         }
 
+        public void Buffering(int count) 
+        {
+            Clean();
+            CheckPage();
+
+            var links = Task.Run(() => new FileLinkPage(Page.ToString())).Result;
+            if (Position + count > links.Count)
+                throw new Exception("this count is very big");
+
+                for (int i = 0; i < count; i++)
+            {
+                int pos = i + Position;
+                var fileInformation = Task.Run(() => new FilePage(links[pos])).Result;
+
+                buffer.Add(fileInformation);
+                Position++;
+            }
+
+            //Position = count;
+
+            if (Position + count >= links.Count) 
+            {
+                Position = 0;
+                Page = new Link(links.NextPage.ToString());
+            }
+
+            IsBuffering = true;
+        }
+
+        private void Clean() 
+        {
+            IsBuffering = false;
+            buffer = new List<FilePage>();
+        }
+
         public void Check() 
         {
-            if (this.Page == "")
-                throw new FileBufferException("Page is not available");
-            if (!this.IsBuffering || this.Count == 0)
+            if (!this.IsBuffering)
                 throw new FileBufferException("Buffer is not available");
+            if (this.Count == 0)
+                throw new FileBufferException("Buffer is empty");
+        }
 
+        public void CheckPage() 
+        {
+            if (this.Page == "")
+                throw new Exception("Page is not available");
         }
 
         public FilePage[] Get => buffer.ToArray();
@@ -56,10 +95,8 @@ namespace HurtomFiles.Logic
         // TODO: it is not working
         public void _Buffering()
         {
-            IsBuffering = false;
-            buffer = new List<FilePage>();
-
-            if (this.Page.ToString() == "") return;
+            Clean();
+            CheckPage();
 
             var links = Task.Run(() => new FileLinkPage(Page.ToString())).Result;
 

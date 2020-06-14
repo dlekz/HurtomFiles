@@ -5,6 +5,7 @@ using HtmlAgilityPack;
 
 namespace HurtomFiles.Logic
 {
+    // TODO: Check must be working when it need
     public struct FilePage
     {
         public string type;
@@ -39,7 +40,7 @@ namespace HurtomFiles.Logic
                     .First().Attributes["src"].Value;
                 this.information = "";
             }
-            catch (Exception ex) 
+            catch (Exception) 
             {
                 this.title = new Title("file not found");
                 this.imageUri = "";
@@ -63,5 +64,6 @@ namespace HurtomFiles.Logic
         {
             return 0;
         }
+
     }
 }
