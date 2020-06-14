@@ -10,8 +10,10 @@
 
 namespace HurtomFiles.WPF.Properties {
     using System;
-    
-    
+    using System.Windows.Media.Imaging;
+    using System.IO;
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -61,26 +63,6 @@ namespace HurtomFiles.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Five_pointed_star {
-            get {
-                object obj = ResourceManager.GetObject("Five_pointed_star", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Five_pointed_star_yellow {
-            get {
-                object obj = ResourceManager.GetObject("Five_pointed_star_yellow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] HurtomTitle {
@@ -97,6 +79,46 @@ namespace HurtomFiles.WPF.Properties {
             get {
                 object obj = ResourceManager.GetObject("Loading", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static BitmapImage WHITE_STAR {
+            get {
+                object obj = ResourceManager.GetObject("WHITE_STAR", resourceCulture);
+                var bitmap = ((System.Drawing.Bitmap)(obj));
+                return ToBitmapImage(bitmap);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static BitmapImage YELLOW_STAR {
+            get {
+                object obj = ResourceManager.GetObject("YELLOW_STAR", resourceCulture);
+                var bitmap = ((System.Drawing.Bitmap)(obj));
+                return ToBitmapImage(bitmap);
+            }
+        }
+
+        public static BitmapImage ToBitmapImage(System.Drawing.Bitmap bitmap)
+        {
+            using (var memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
+                memory.Position = 0;
+
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+
+                return bitmapImage;
             }
         }
     }

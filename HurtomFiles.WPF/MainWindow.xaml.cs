@@ -18,11 +18,11 @@ namespace HurtomFiles.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly FileElementPanel elements;
+        private readonly Body elements;
         private readonly AddMoreElements_Button addMoreElements = new AddMoreElements_Button();
         private readonly LoadingElement loadingElement = new LoadingElement();
-        private readonly SideBarElement sideBarElement = new SideBarElement();
-        private readonly HeaderElement headerElement = new HeaderElement();
+        private readonly SideBar sideBarElement = new SideBar();
+        private readonly Header headerElement = new Header();
 
         // TODO: it's work, but slow
         // TODO: https://toloka.to/t51625 info not found
@@ -35,16 +35,14 @@ namespace HurtomFiles.WPF
             this.sideBarElement.ShowElements_Button.Click += ShowElements_Button_Click;
             this.sideBarElement.ShowFavorites_Button.Click += ShowFavorites_Button_Click;
 
-            Closing += Before_Close;
+            this.Closing += Before_Close;
 
-            elements = new FileElementPanel("https://toloka.to/f16");
+            elements = new Body("https://toloka.to/f16");
 
             var elementsPanel = new StackPanel();
 
             elementsPanel.Children.Add(elements);
             elementsPanel.Children.Add(addMoreElements);
-           // elementsPanel.Children.Add(loadingElement);
-           // elementsPanel.Children.Add(loadingElement.LoadingElement_Rotate());
 
 
             var scroll = new ScrollViewer() { Content = elementsPanel };
@@ -54,6 +52,7 @@ namespace HurtomFiles.WPF
             this.MainGrid.Children.Add(scroll);
 
             Task.Run(() => elements.Buffering(9));
+            headerElement.WriteTimer();
         }
 
         private void CursorChange(object sender, EventArgs e) 
@@ -71,19 +70,19 @@ namespace HurtomFiles.WPF
 
         private void ShowElements_Button_Click(object sender, EventArgs e) 
         {
-            elements.ShowElements();
+            elements.Show(FileElementTypes.MAIN);
             addMoreElements.Visibility = Visibility.Visible;
         }
 
         private void ShowFavorites_Button_Click(object sender, EventArgs e)
         {
-            elements.ShowFavorites();
+            elements.Show(FileElementTypes.FAVORITES);
             addMoreElements.Visibility = Visibility.Hidden;
         }
 
         private void Before_Close(object sender, EventArgs e)
         {
-            elements.SetFavorites();
+            elements.Favorites.Set();
         }
 
     }

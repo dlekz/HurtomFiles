@@ -10,16 +10,18 @@ using System.IO;
 
 namespace HurtomFiles.WPF
 {
-    public class HeaderElement : Element
+    public class Header : Element
     {
-        public HeaderElement() : base() => Set();
+        private readonly TimeInterval timer = new TimeInterval();
+        public Header() : base() => Set();
 
         private void Set()
         {
-            StackPanel stack = new StackPanel()
+            var panel = new StackPanel()
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Left,
+                Orientation = Orientation.Horizontal,
             };
 
             var img = new Image()
@@ -30,10 +32,12 @@ namespace HurtomFiles.WPF
                 Source = LoadImage(Properties.Resources.HurtomTitle),
             };
 
-            stack.Children.Add(img);
-            this.Child = stack;
-
+            panel.Children.Add(img);
+            panel.Children.Add(timer);
+            this.Child = panel;
         }
+
+        public void WriteTimer() => timer.Write("Час старту");
 
         private static BitmapImage LoadImage(byte[] imageData)
         {

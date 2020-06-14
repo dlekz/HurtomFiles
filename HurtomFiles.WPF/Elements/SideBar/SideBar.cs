@@ -7,9 +7,9 @@ using System.Windows.Media;
 
 namespace HurtomFiles.WPF
 {
-    public class SideBarElement : Element
+    public class SideBar : Element
     {
-        public SideBarElement() : base() => Set();
+        public SideBar() : base() => Set();
 
         public Button ShowElements_Button { set; get; }
         public Button ShowFavorites_Button { set; get; }
@@ -22,15 +22,23 @@ namespace HurtomFiles.WPF
                 HorizontalAlignment = HorizontalAlignment.Stretch,
             };
 
-            ShowElements_Button = new Button();
-            ShowElements_Button.Content = "Всі фільми";
-            ShowFavorites_Button = new Button();
-            ShowFavorites_Button.Content = "Улюблені";
+            ShowElements_Button = SetButton("Всі фільми");
+            ShowFavorites_Button = SetButton("Обране");
 
             stack.Children.Add(ShowElements_Button);
             stack.Children.Add(ShowFavorites_Button);
 
             this.Child = stack;
+        }
+
+        private Button SetButton(string content)
+        { 
+            return new Button() 
+            {
+                FontSize = 15,
+                Content = content,
+                Padding = new Thickness(5), 
+            };
         }
     }
 }

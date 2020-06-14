@@ -8,26 +8,39 @@ using System.Windows.Media.Imaging;
 using System.IO;
 
 
-namespace HurtomFiles.WPF.Elements
+namespace HurtomFiles.WPF
 {
-    public class StarElement : Image
+    public class Star : Image
     {
-        public bool Focused { set; get; } = false;
+        public bool Focused { private set; get; } = false;
 
-        public readonly BitmapImage WHITE_STAR = ToBitmapImage(Properties.Resources.Five_pointed_star);
-        public readonly BitmapImage YELLOW_STAR = ToBitmapImage(Properties.Resources.Five_pointed_star_yellow);
-        
-        public string Color;
-        public StarElement() : base()
+        private StarColors color;
+
+        public StarColors Color 
+
+        {
+            set 
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.Source = (value == StarColors.YELLOW)
+                        ? Properties.Resources.YELLOW_STAR : Properties.Resources.WHITE_STAR;
+                    color = value;
+                });
+            }
+
+            get => color;
+        }
+
+        public Star() : base()
         {
             this.MouseEnter += SetFocus;
             this.MouseLeave += LostFocus;
-           // this.MouseDown += this_Click;
             Stretch = Stretch.Fill;
             Height = 30;
             Width = 30;
-            Source = WHITE_STAR;
-            Color = "WHITE";
+            Source = Properties.Resources.WHITE_STAR;
+            Color = StarColors.WHITE;
             VerticalAlignment = VerticalAlignment.Top;
             HorizontalAlignment = HorizontalAlignment.Left;
         }
@@ -54,34 +67,10 @@ namespace HurtomFiles.WPF.Elements
             }
         }
 
-        public void ChangeColor() 
+        public enum StarColors : int
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                if (Source == WHITE_STAR)
-                {
-                    SetColor_Yellow();
-                }
-                else if (Source == YELLOW_STAR)
-                {
-                    SetColor_White();
-                }
-            });
+            WHITE = 0,
+            YELLOW = 1,
         }
-
-        public void SetColor_White() =>
-            Application.Current.Dispatcher.Invoke(() => 
-            {
-                this.Source = WHITE_STAR;
-                this.Color = "WHITE";
-            });
-
-        public void SetColor_Yellow() =>
-            Application.Current.Dispatcher.Invoke(() => 
-            {
-                this.Source = YELLOW_STAR;
-                this.Color = "YELLOW";
-            });
-
     }
 }

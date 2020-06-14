@@ -10,6 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\Resources - Copy.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

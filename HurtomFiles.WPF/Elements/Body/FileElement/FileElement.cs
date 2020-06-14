@@ -8,6 +8,7 @@ using HurtomFiles.Logic;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using HurtomFiles.WPF.Elements;
+using System.Diagnostics;
 
 namespace HurtomFiles.WPF
 {
@@ -17,24 +18,39 @@ namespace HurtomFiles.WPF
         public readonly FilePage source;
         private TextBlock text;
 
-        public StarElement star = new StarElement();
-
+        private Star star = new Star();
 
         public bool Focused { set; get; } = false;
+        
+        [Obsolete]
+        public bool StarFocused => star.Focused;
+
+        public Star.StarColors StarColor 
+        {
+            set => star.Color = value;
+            get => star.Color;
+        }
 
         public FileElement() : base(Brushes.WhiteSmoke, Brushes.Black,
             thickness: new Thickness(3), margin: new Thickness(5, 5, 0, 5))
         {
             this.Width = 200;
             this.Height = 300;
+            this.MouseEnter += SetFocus;
+            this.MouseLeave += LostFocus;
         }
 
         public FileElement(FilePage info) : this()
         {
             source = info;
-            this.MouseEnter += SetFocus;
-            this.MouseLeave += LostFocus;
+
             Set(info);
+        }
+
+        public FileElement(string uri) : this() 
+        {
+            source = Task.Run(() => new FilePage(uri)).Result;
+            Set(source);
         }
 
         private void Set(FilePage info)
@@ -85,6 +101,43 @@ namespace HurtomFiles.WPF
             this.BorderBrush = Brushes.Black;
             this.text.Foreground = Brushes.Black;
             Focused = false;
+        }
+
+        public void MouseClick() 
+        {
+            if (star.Focused)
+            {
+                this.ChangeStarColor();
+            }
+            else
+            {
+                var psi = new ProcessStartInfo
+                {
+                    FileName = this.source.source.ToString(),
+                    UseShellExecute = true,
+                };
+                Process.Start(psi);
+            }
+        }
+
+        public void After_MouseClick() 
+        {
+            
+        }
+
+        public void ChangeStarColor() 
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (StarColor == Star.StarColors.WHITE)
+                {
+                    StarColor = Star.StarColors.YELLOW;
+                }
+                else if (StarColor == Star.StarColors.YELLOW)
+                {
+                    StarColor = Star.StarColors.WHITE;
+                }
+            });
         }
     }
 }
