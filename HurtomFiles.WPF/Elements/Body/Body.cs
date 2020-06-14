@@ -123,8 +123,13 @@ namespace HurtomFiles.WPF
                             {
                                 Show(FileElementTypes.FAVORITES);
                                 if (Elements.Value.Exists(x => x.source.source.ToString()
-                                    == el.source.source.ToString()))
-                                        el.StarColor = Star.StarColors.WHITE;
+                                    == el.source.source.ToString())) 
+                                {
+                                    var target = Elements.Value.Where(x => x.source.source.ToString()
+                                        == el.source.source.ToString()).ToArray().First();
+                                    target.StarColor = Star.StarColors.WHITE;
+                                }
+                                        
                             }
 
                             return;
