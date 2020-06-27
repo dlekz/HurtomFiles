@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:HurtomFiles.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="475" Width="975">
-    <Grid Background="Orange">
+    <Grid Background="#daced1">
         <Grid.RowDefinitions>
             <RowDefinition Height="120" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="210"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="HeaderGrid" />

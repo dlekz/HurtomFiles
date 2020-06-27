@@ -18,7 +18,7 @@ namespace HurtomFiles.WPF
 
         public FileElementCollection Elements { private set; get; } = new FileElementCollection();
 
-        private FileElementTypes ActiveElements = FileElementTypes.MAIN;
+        public FileElementTypes ActiveElements = FileElementTypes.MAIN;
 
         public Favorites Favorites { set; get; }
 
@@ -37,8 +37,8 @@ namespace HurtomFiles.WPF
 
             Buffer.Page = new Link(uri);
             Buffer.Buffering();
-            //this.AddRange(Buffer.Get);
-            Elements.AddRange(Buffer.Get, Favorites.Value.ToList());
+
+            AddElements();
             Show(FileElementTypes.MAIN);
 
             Buffer.Page = new Link(infoColl.NextPage.ToString());
@@ -73,7 +73,10 @@ namespace HurtomFiles.WPF
         {
             this.VerticalAlignment = VerticalAlignment.Stretch;
             this.HorizontalAlignment = HorizontalAlignment.Stretch;
-            this.Background = Brushes.Orange;
+            BrushConverter bc = new BrushConverter();
+            Brush brush = (Brush)bc.ConvertFrom("#daced1");
+            brush.Freeze();
+            this.Background = brush;
             this.Margin = new Thickness(0);
         }
 
@@ -82,12 +85,28 @@ namespace HurtomFiles.WPF
             try
             {
                 Buffer.Check();
-                this.Elements.AddRange(Buffer.Get, this.Favorites.Value);
+                AddElements();
+
                 Buffer.Buffering(9);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void AddElements() 
+        {
+            foreach (var page in Buffer.Get)
+            {
+                var element = Application.Current.Dispatcher.Invoke(() => new FileElement(page));
+
+                if (Favorites.Value.Exists(x => x.source.source.ToString()
+                    == element.source.source.ToString()))
+                    Application.Current.Dispatcher.Invoke(() => element.StarColor = Star.StarColors.YELLOW);
+
+                Elements.Add(element);
+                Application.Current.Dispatcher.Invoke(() => this.Children.Add(element));
             }
         }
 
@@ -106,8 +125,6 @@ namespace HurtomFiles.WPF
             {
                 if (el.Focused)
                 {
-                    //var star = el.star;
-
                     if (el.StarFocused)
                     {
                         if (el.StarColor == Star.StarColors.YELLOW) 
@@ -151,5 +168,6 @@ namespace HurtomFiles.WPF
         }
 
         public void Buffering(int count) => Buffer.Buffering(count);
+
     }
 }

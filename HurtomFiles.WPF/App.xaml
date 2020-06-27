@@ -4,25 +4,39 @@
              xmlns:local="clr-namespace:HurtomFiles.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="ButtonStyle">
-            <Setter Property="Control.FontSize" Value="18" />
+        <Style x:Key="BtnStyle">
+            <Setter Property="Control.FontSize" Value="15" />
             <Setter Property="Control.FontFamily" Value="Verdana Bold" />
+            <Setter Property="ItemsControl.Padding" Value="5"/>
+            <Setter Property="ItemsControl.Width" Value="200" />
         </Style>
-        <Style x:Key="TitleStyle">
-            <Setter Property="Control.FontSize" Value="25" />
-            <Setter Property="Control.FontFamily" Value="Algerian" />
+        <Style x:Key="BrdrStyle">
+            <Setter Property="ItemsControl.BorderThickness" Value="2" />
+            <Setter Property="ItemsControl.Padding" Value="5" />
+            <Setter Property="ItemsControl.Margin" Value="5" />
         </Style>
-        <Style x:Key="DataGridStyle">
-            <Setter Property="DataGrid.ColumnWidth" Value="*" />
-            <Setter Property="DataGrid.RowHeight" Value="30" />
-            <Setter Property="Control.FontFamily" Value="Comic Sans MS Bold" />
-            <Setter Property="Control.FontSize" Value="18" />
-            <Setter Property="Control.HorizontalContentAlignment" Value="Center" />
-            <!--            <Setter Property="DataGrid.IsReadOnly" Value="true" />   -->
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Style x:Key="ElementStyle">
+            <Setter Property="ItemsControl.BorderBrush" Value="Black" />
+            <Setter Property="ItemsControl.BorderThickness" Value="3" />
+            <Setter Property="Border.Padding" Value="5" />
+            <Setter Property="ItemsControl.Margin" Value="5, 5, 0, 5" />
+            <Setter Property="ItemsControl.Width" Value="200" />
+            <Setter Property="ItemsControl.Height" Value="300" />
+            <Setter Property="ItemsControl.Background" Value="#d5b0b5" />
         </Style>
-        <Style x:Key="TextBoxStyle">
-            <Setter Property="TextBox.TextAlignment" Value="Center" />
+        <Style x:Key="SideBarStyle">
+            <Setter Property="ItemsControl.BorderBrush" Value="Black" />
+            <Setter Property="ItemsControl.BorderThickness" Value="2" />
+            <Setter Property="Border.Padding" Value="5" />
+            <Setter Property="ItemsControl.Margin" Value="5" />
+            <Setter Property="ItemsControl.Background" Value="#6689a2" />
+        </Style>
+        <Style x:Key="HeaderStyle">
+            <Setter Property="ItemsControl.BorderBrush" Value="Black" />
+            <Setter Property="ItemsControl.BorderThickness" Value="2" />
+            <Setter Property="Border.Padding" Value="5" />
+            <Setter Property="ItemsControl.Margin" Value="5" />
+            <Setter Property="ItemsControl.Background" Value="#6689a2" />
         </Style>
     </Application.Resources>
 </Application>

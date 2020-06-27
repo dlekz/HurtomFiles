@@ -7,15 +7,25 @@ using System.Windows.Media;
 
 namespace HurtomFiles.WPF
 {
-    public class SideBar : Element
+    public class SideBar : Border //: Element
     {
-        public SideBar() : base() => Set();
+        public SideBar() //: base() 
+            => Set();
 
         public Button ShowElements_Button { set; get; }
         public Button ShowFavorites_Button { set; get; }
 
         private void Set()
         {
+            //BrushConverter bc = new BrushConverter();
+            //Brush brush = (Brush)bc.ConvertFrom("#6689a2");
+            //brush.Freeze();
+            //this.Background = brush;
+            
+
+            this.Style = App.ThisApp.FindResource("SideBarStyle") as Style;
+            //this.Padding = new Thickness(5);
+
             StackPanel stack = new StackPanel()
             {
                 VerticalAlignment = VerticalAlignment.Top,
@@ -35,9 +45,8 @@ namespace HurtomFiles.WPF
         { 
             return new Button() 
             {
-                FontSize = 15,
+                Style = App.ThisApp.FindResource("BtnStyle") as Style,
                 Content = content,
-                Padding = new Thickness(5), 
             };
         }
     }

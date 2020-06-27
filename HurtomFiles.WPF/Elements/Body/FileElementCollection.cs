@@ -15,34 +15,11 @@ namespace HurtomFiles.WPF
 
         public FileElementCollection() 
         {
-            //this.Value.AddRange(Get());
         }
 
-        public void Add(string uri, bool isFavorite)
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                
-                var newElement = new FileElement(uri);
-                if (isFavorite)
-                    newElement.StarColor = Star.StarColors.YELLOW;
+        public void Add(FileElement element) =>
+            this.Value.Add(element);
 
-                this.Value.Add(newElement);
-            });
-        }
-
-        public void AddRange(FilePage[] files, List<FileElement> favorites) 
-        {
-            foreach (var file in files)
-            {
-                bool isFavorite = false;
-                var element = new FileElement(file);
-                if (favorites.Exists(x => x.source.source.ToString() == element.source.source.ToString()))
-                    isFavorite = true;
-                
-                this.Add(element.source.source.ToString(), isFavorite);
-            }
-        }
 
     }
 }

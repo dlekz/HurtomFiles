@@ -13,10 +13,17 @@ namespace HurtomFiles.WPF
     public class Header : Element
     {
         private readonly TimeInterval timer = new TimeInterval();
-        public Header() : base() => Set();
+        public Header() : base() 
+            => Set();
 
         private void Set()
         {
+            //BrushConverter bc = new BrushConverter();
+            //Brush brush = (Brush)bc.ConvertFrom("#6689a2");
+            //brush.Freeze();
+            //this.Background = brush;
+            this.Style = App.ThisApp.FindResource("HeaderStyle") as Style;
+
             var panel = new StackPanel()
             {
                 VerticalAlignment = VerticalAlignment.Center,

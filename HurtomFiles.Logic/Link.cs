@@ -11,6 +11,11 @@ namespace HurtomFiles.Logic
 
         public Link(string link) 
         {
+            if (link is null) 
+            {
+                value = "";
+                return;
+            }
             if (link.Contains(domainName))
                 value = link;
             else 

@@ -13,5 +13,11 @@ namespace HurtomFiles.WPF
     /// </summary>
     public partial class App : Application
     {
+        public static Application ThisApp;
+
+        public App() 
+        {
+            ThisApp = this;
+        }
     }
 }
