@@ -8,11 +8,10 @@ using HurtomFiles.Logic;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using HurtomFiles.WPF.Elements;
-using System.Diagnostics;
 
 namespace HurtomFiles.WPF
 {
-    public class FileElement : Element
+    public class FileElement : Border
     {
 
         public readonly FilePage source;
@@ -31,32 +30,27 @@ namespace HurtomFiles.WPF
             get => star.Color;
         }
 
-        public FileElement() : base(Brushes.WhiteSmoke, Brushes.Black,
-            thickness: new Thickness(3), margin: new Thickness(5, 5, 0, 5))
-        {
-            this.Width = 200;
-            this.Height = 300;
-            this.MouseEnter += SetFocus;
-            this.MouseLeave += LostFocus;
-        }
-
-        public FileElement(FilePage info) : this()
+        public FileElement(FilePage info)
         {
             source = info;
-
             Set(info);
         }
 
-        public FileElement(string uri) : this() 
+        public FileElement(string uri)
         {
             source = Task.Run(() => new FilePage(uri)).Result;
             Set(source);
         }
 
         private void Set(FilePage info)
-        {          
+        {
+            this.Style = App.ThisApp.FindResource("ElementStyle") as Style;
+
+            this.MouseEnter += SetFocus;
+            this.MouseLeave += LostFocus;
+
             StackPanel stack = new StackPanel();
-            //stack.Children.Add(star);
+
             text = new TextBlock()
             {
                 Text = info.title.ToString(),
@@ -91,8 +85,12 @@ namespace HurtomFiles.WPF
 
         private void SetFocus(object sender, EventArgs e)
         {
-            this.BorderBrush = Brushes.Green;
-            this.text.Foreground = Brushes.Green;
+            BrushConverter bc = new BrushConverter();
+            Brush brush = (Brush)bc.ConvertFrom("#6689a2");
+            brush.Freeze();
+
+            this.BorderBrush = brush;
+            this.text.Foreground = brush;
             Focused = true;
         }
 

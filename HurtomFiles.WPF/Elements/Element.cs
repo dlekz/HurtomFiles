@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -6,6 +7,7 @@ namespace HurtomFiles.WPF
 {
     public class Element : Border
     {
+        [Obsolete ("Use static resouces")]
         public Element(SolidColorBrush background = null, SolidColorBrush borderBlush = null, 
             Thickness thickness = new Thickness(), 
             Thickness padding = new Thickness(), 

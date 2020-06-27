@@ -26,7 +26,7 @@ namespace HurtomFiles.WPF.Elements
                 this.Value = new List<FileElement>();
 
                 var newElement = new FileElement(uri);
-                newElement.StarColor =Star.StarColors.YELLOW;
+                newElement.StarColor = Star.StarColors.YELLOW;
 
                 this.Value.Add(newElement);
                 this.Value.AddRange(temp);
