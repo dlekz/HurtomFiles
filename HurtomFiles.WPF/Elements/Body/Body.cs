@@ -24,7 +24,7 @@ namespace HurtomFiles.WPF
 
         public Body(string uri)
         {
-            this.Set();
+            this.Style = App.Styles.BodyStyle;
 
             this.MouseEnter += SetFocus;
             this.MouseLeave += LostFocus;
@@ -69,17 +69,6 @@ namespace HurtomFiles.WPF
             });
         }
 
-        private void Set() 
-        {
-            this.VerticalAlignment = VerticalAlignment.Stretch;
-            this.HorizontalAlignment = HorizontalAlignment.Stretch;
-            BrushConverter bc = new BrushConverter();
-            Brush brush = (Brush)bc.ConvertFrom("#daced1");
-            brush.Freeze();
-            this.Background = brush;
-            this.Margin = new Thickness(0);
-        }
-
         public void AddPage()
         {
             try
@@ -101,9 +90,9 @@ namespace HurtomFiles.WPF
             {
                 var element = Application.Current.Dispatcher.Invoke(() => new FileElement(page));
 
-                if (Favorites.Value.Exists(x => x.source.source.ToString()
-                    == element.source.source.ToString()))
-                    Application.Current.Dispatcher.Invoke(() => element.StarColor = Star.StarColors.YELLOW);
+                if (Favorites.Value.Exists(x => x.source.link == element.source.link))
+                    Application.Current.Dispatcher.Invoke(() 
+                        => element.StarColor = Star.StarColors.YELLOW);
 
                 Elements.Add(element);
                 Application.Current.Dispatcher.Invoke(() => this.Children.Add(element));
@@ -123,49 +112,40 @@ namespace HurtomFiles.WPF
         {
             foreach (FileElement el in this.Children)
             {
-                if (el.Focused)
+                //if (!el.StarFocused)
+                //    return;
+
+                if (el.Focused && el.StarFocused)
                 {
-                    if (el.StarFocused)
+                    if (el.StarColor == Star.StarColors.YELLOW) 
                     {
-                        if (el.StarColor == Star.StarColors.YELLOW) 
-                        {
-                            Favorites.Add(el.source.source.ToString());
-                            return;
-                        }
-                        if (el.StarColor == Star.StarColors.WHITE) 
-                        {
-                            Favorites.Remove(el.source.source.ToString());
+                        Favorites.Add(el.source.link);
+                        return;
+                    }
+                    if (el.StarColor == Star.StarColors.WHITE) 
+                    {
+                        Favorites.Remove(el.source.link);
 
-                            if (ActiveElements == FileElementTypes.FAVORITES) 
-                            {
-                                Show(FileElementTypes.FAVORITES);
-                                if (Elements.Value.Exists(x => x.source.source.ToString()
-                                    == el.source.source.ToString())) 
-                                {
-                                    var target = Elements.Value.Where(x => x.source.source.ToString()
-                                        == el.source.source.ToString()).ToArray().First();
-                                    target.StarColor = Star.StarColors.WHITE;
-                                }
-                                        
-                            }
-
+                        if (ActiveElements != FileElementTypes.FAVORITES)
                             return;
+
+                        Show(FileElementTypes.FAVORITES);
+                        if (Elements.Value.Exists(x => x.source.link == el.source.link)) 
+                        {
+                            var target = Elements.Value.Where(x => x.source.link == el.source.link)
+                                .ToArray().First();
+                            target.StarColor = Star.StarColors.WHITE;
                         }
 
+                        return;
                     }
                 }
             }
         }
 
-        private void SetFocus(object sender, EventArgs e)
-        {
-            Focused = true;
-        }
+        private void SetFocus(object sender, EventArgs e) => Focused = true;
 
-        private void LostFocus(object sender, EventArgs e)
-        {
-            Focused = false;
-        }
+        private void LostFocus(object sender, EventArgs e) => Focused = false;
 
         public void Buffering(int count) => Buffer.Buffering(count);
 

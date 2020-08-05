@@ -21,10 +21,10 @@ namespace HurtomFiles.WPF
             this.Width = 100;
             this.Margin = new Thickness(5, 50, 5, 50);
 
-            Bitmap bitmap = Properties.Resources.Loading;
-            bitmap.MakeTransparent(bitmap.GetPixel(0, 0));
+           // Bitmap bitmap = Properties.Resources.Loading;
+           // bitmap.MakeTransparent(bitmap.GetPixel(0, 0));
 
-            this.Background = new ImageBrush(ToBitmapImage(bitmap));
+            //this.Background = new ImageBrush(ToBitmapImage(bitmap));
 
             //LoadingElement_Rotate();
             RotateTransform rotate = new RotateTransform(50);

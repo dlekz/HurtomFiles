@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using HurtomFiles.WPF.Properties;
 using HtmlAgilityPack;
 using HurtomFiles.Logic;
 
@@ -19,8 +19,8 @@ namespace HurtomFiles.WPF
     public partial class MainWindow : Window
     {
         private readonly Body body;
-        private readonly Button addMoreElements = new Button();
-        private readonly LoadingElement loadingElement = new LoadingElement();
+        private readonly Button addMoreElements;
+        //private readonly LoadingElement loadingElement = new LoadingElement();
         private readonly SideBar sideBarElement = new SideBar();
         private readonly Header headerElement = new Header();
 
@@ -33,13 +33,14 @@ namespace HurtomFiles.WPF
             InitializeComponent();
             this.MouseMove += CursorChange;
 
+            this.addMoreElements = App.Elements.NormalButton;
             this.addMoreElements.Content = "Дивитися більше";
-            this.addMoreElements.Style = App.ThisApp.FindResource("BtnStyle") as Style;
             this.addMoreElements.Margin = new Thickness(5, 50, 5, 50);
             this.addMoreElements.Click += AddMoreElements_Button_Click;
 
             this.sideBarElement.ShowElements_Button.Click += ShowElements_Button_Click;
             this.sideBarElement.ShowFavorites_Button.Click += ShowFavorites_Button_Click;
+
             this.KeyDown += Key_Down;
             this.Closing += Before_Close;
 
@@ -96,12 +97,27 @@ namespace HurtomFiles.WPF
                 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
                 && body.ActiveElements == FileElementTypes.FAVORITES)
             {
-                var addFavorite = new AddFavorite();
+                var addFavorite = new DialogWindow("Додати посилання", App.GetClipboardText());
                 addFavorite.ShowDialog();
-                body.Favorites.Add(AddFavorite.Bookmark);
+                body.Favorites.Add(DialogWindow.Value);
                 body.Show(FileElementTypes.FAVORITES);
             }
-        }
 
+            if (e.Key.Equals(Key.F)
+                && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                var elements = new SearchCommand().Result;
+
+                if (elements.Count() == 0)
+                    return;
+
+                this.addMoreElements.Visibility = Visibility.Hidden;
+
+                Application.Current.Dispatcher.Invoke(() => body.Children.Clear());
+                
+                foreach (var el in elements)
+                    Application.Current.Dispatcher.Invoke(() => body.Children.Add(el));
+            }
+        }
     }
 }

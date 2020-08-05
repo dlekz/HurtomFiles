@@ -38,5 +38,40 @@
             <Setter Property="ItemsControl.Margin" Value="5" />
             <Setter Property="ItemsControl.Background" Value="#6689a2" />
         </Style>
+        <Style x:Key="BodyStyle">
+            <Setter Property="ItemsControl.VerticalAlignment" Value="Stretch" />
+            <Setter Property="ItemsControl.HorizontalAlignment" Value="Stretch" />
+            <Setter Property="ItemsControl.Background" Value="#daced1" />
+            <Setter Property="ItemsControl.Margin" Value="0" />
+        </Style>
+
+        <Style x:Key="HorizontalStackStyle">
+            <Setter Property="ItemsControl.VerticalAlignment" Value="Center" />
+            <Setter Property="ItemsControl.HorizontalAlignment" Value="Stretch" />
+            <Setter Property="StackPanel.Orientation" Value="Horizontal" />
+        </Style>
+
+        <Style x:Key="ButtonStackStyle">
+            <Setter Property="ItemsControl.VerticalAlignment" Value="Top" />
+            <Setter Property="ItemsControl.HorizontalAlignment" Value="Stretch" />
+            <Setter Property="StackPanel.Orientation" Value="Vertical" />
+        </Style>
+
+        <Image x:Key="HurtomTitle" Stretch="Fill" Height="110" Width="521">
+            <Image.Source>
+                <BitmapImage UriSource="pack://siteoforigin:,,,/Resources/HurtomTitle.png" />
+            </Image.Source>
+        </Image>
+
+        <BitmapImage x:Key="HurtomTitleBitmap" 
+                     UriSource="pack://siteoforigin:,,,/Resources/HurtomTitle.png" />
+        <BitmapImage x:Key="YellowStar"
+                     UriSource="pack://siteoforigin:,,,/Resources/Five-pointed_star_yellow.png" />
+        <BitmapImage x:Key="WhiteStar"
+                     UriSource="pack://siteoforigin:,,,/Resources/Five-pointed_star.png" />
+
+        <StackPanel x:Key="ButtonStack" Orientation="Vertical" 
+                    VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+
     </Application.Resources>
 </Application>

@@ -15,25 +15,27 @@ namespace HurtomFiles.WPF
     /// <summary>
     /// Interaction logic for AddFavorive.xaml
     /// </summary>
-    public partial class AddFavorite : Window
+    public partial class DialogWindow : Window
     {
-        private static string bookmark = "";
-        public static string Bookmark 
+        private static string value = "";
+        public static string Value 
         {
-            set => bookmark = value;
+            set => DialogWindow.value = value;
             get 
             {
-                string value = bookmark;
-                bookmark = "";
+                string value = DialogWindow.value;
+                DialogWindow.value = "";
                 return value;
             }
         }
 
-        public AddFavorite()
+        public DialogWindow(string windowName = "NONAME WINDOW", string defaultValue = "") 
         {
             InitializeComponent();
-            AddBookmark.Click += AddBookmark_Click;
-            BookmarkUri.Text = GetClipboardText();
+            this.Title = windowName;
+            Value = defaultValue;
+
+            DoingButton.Click += Doing;
         }
 
         public string GetClipboardText()
@@ -45,9 +47,9 @@ namespace HurtomFiles.WPF
             return "";
         }
 
-        public void AddBookmark_Click(Object sender, RoutedEventArgs e) 
+        public void Doing(Object sender, RoutedEventArgs e) 
         {
-            Bookmark = BookmarkUri.Text;
+            Value = ValueText.Text;
             this.Close();
         }
     }

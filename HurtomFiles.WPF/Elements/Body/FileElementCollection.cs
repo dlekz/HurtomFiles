@@ -13,13 +13,8 @@ namespace HurtomFiles.WPF
     {
         public List<FileElement> Value { set; get; } = new List<FileElement>();
 
-        public FileElementCollection() 
-        {
-        }
-
         public void Add(FileElement element) =>
             this.Value.Add(element);
-
 
     }
 }

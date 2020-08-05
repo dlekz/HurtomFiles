@@ -24,7 +24,8 @@ namespace HurtomFiles.WPF
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     this.Source = (value == StarColors.YELLOW)
-                        ? Properties.Resources.YELLOW_STAR : Properties.Resources.WHITE_STAR;
+                        ? App.ThisApp.FindResource("YellowStar") as BitmapImage 
+                        : App.ThisApp.FindResource("WhiteStar") as BitmapImage;
                     color = value;
                 });
             }
@@ -39,7 +40,7 @@ namespace HurtomFiles.WPF
             Stretch = Stretch.Fill;
             Height = 30;
             Width = 30;
-            Source = Properties.Resources.WHITE_STAR;
+            Source = App.ThisApp.FindResource("WhiteStar") as BitmapImage;
             Color = StarColors.WHITE;
             VerticalAlignment = VerticalAlignment.Top;
             HorizontalAlignment = HorizontalAlignment.Left;
@@ -48,24 +49,6 @@ namespace HurtomFiles.WPF
         private void SetFocus(object sender, EventArgs e) => Focused = true;
 
         private void LostFocus(object sender, EventArgs e) => Focused = false;
-
-        public static BitmapImage ToBitmapImage(System.Drawing.Bitmap bitmap)
-        {
-            using (var memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
-                memory.Position = 0;
-
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
-
-                return bitmapImage;
-            }
-        }
 
         public enum StarColors : int
         {

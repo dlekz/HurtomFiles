@@ -21,7 +21,6 @@ namespace HurtomFiles.WPF
 
         public bool Focused { set; get; } = false;
         
-        [Obsolete]
         public bool StarFocused => star.Focused;
 
         public Star.StarColors StarColor 
@@ -44,7 +43,7 @@ namespace HurtomFiles.WPF
 
         private void Set(FilePage info)
         {
-            this.Style = App.ThisApp.FindResource("ElementStyle") as Style;
+            this.Style = App.Styles.ElementStyle;
 
             this.MouseEnter += SetFocus;
             this.MouseLeave += LostFocus;
@@ -111,7 +110,7 @@ namespace HurtomFiles.WPF
             {
                 var psi = new ProcessStartInfo
                 {
-                    FileName = this.source.source.ToString(),
+                    FileName = this.source.link,
                     UseShellExecute = true,
                 };
                 Process.Start(psi);

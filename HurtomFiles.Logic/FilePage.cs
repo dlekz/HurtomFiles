@@ -12,7 +12,8 @@ namespace HurtomFiles.Logic
         public string imageUri;
         public string information;
         public Title title;
-        public Link source;
+        private readonly Link source;
+        public readonly string link;
 
         public FilePage(string uri)
         {
@@ -21,6 +22,7 @@ namespace HurtomFiles.Logic
             this.imageUri = "";
             this.information = "";
             this.source = new Link(uri);
+            this.link = this.source.ToString();
 
             var htmlDocument = new HtmlDocument().HtmlDocumentLoadAsync(uri).Result;
             SetFields(htmlDocument);

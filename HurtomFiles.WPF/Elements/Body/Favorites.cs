@@ -20,6 +20,9 @@ namespace HurtomFiles.WPF.Elements
 
         public void Add(string uri) 
         {
+            if (!CheckUri(uri))
+                return;
+
             Application.Current.Dispatcher.Invoke(() =>
             {
                 var temp = this.Value.Select(x => x).ToArray();
@@ -37,7 +40,7 @@ namespace HurtomFiles.WPF.Elements
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                var found = this.Value.Find(x => x.source.source.ToString() == uri);
+                var found = this.Value.Find(x => x.source.link == uri);
                 this.Value.Remove(found);
             });
         }
@@ -46,7 +49,7 @@ namespace HurtomFiles.WPF.Elements
         {
             jFile.Article = "Links";
             this.Value.Reverse();
-            var jValues = this.Value.Select(x => x.source.source.ToString()).ToArray();
+            var jValues = this.Value.Select(x => x.source.link).ToArray();
 
             jFile.WriteArticle(jValues);
         }
@@ -71,6 +74,13 @@ namespace HurtomFiles.WPF.Elements
             fileElements.Reverse();
 
             return fileElements.ToArray();
+        }
+
+        public bool CheckUri(string uri)
+        {
+            if (uri.Contains("https://toloka.to/"))
+                return true;
+            return false;
         }
     }
 }
