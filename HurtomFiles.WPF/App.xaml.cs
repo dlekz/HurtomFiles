@@ -78,6 +78,11 @@ namespace HurtomFiles.WPF
             {
                 Style = App.Styles.ButtonStyle,
             };
+
+            public static Label InfoLabel => new Label()
+            {
+                Style = ThisApp.FindResource("MsgLabelStyle") as Style,
+            };
         }
 
         public static string GetClipboardText()
@@ -88,5 +93,6 @@ namespace HurtomFiles.WPF
             }
             return "";
         }
+
     }
 }

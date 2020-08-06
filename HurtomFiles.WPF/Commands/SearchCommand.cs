@@ -13,10 +13,9 @@ namespace HurtomFiles.WPF
     {
         private readonly string SearchString;
 
-        public SearchCommand() 
+        public SearchCommand(string serchString)
         {
-            new DialogWindow("Пошук").ShowDialog();
-            this.SearchString = DialogWindow.Value;
+            this.SearchString = serchString;
         }
 
         public List<UIElement> Result 
@@ -33,10 +32,10 @@ namespace HurtomFiles.WPF
 
                 if (links.Length == 0)
                 {
-                    Label filesFotFoundLabel = new Label()
-                    {
-                        Content = "За пошуком нічого не знайдено",
-                    };
+                    Label filesFotFoundLabel = App.Elements.InfoLabel;
+
+                    filesFotFoundLabel.Content = "За пошуком нічого не знайдено";
+
                     elements.Add(filesFotFoundLabel);
                     return elements;
                 }

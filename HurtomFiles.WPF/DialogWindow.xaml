@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:HurtomFiles.WPF"
         mc:Ignorable="d"
         Title="NONAME WINDOW" Height="250" Width="550">
-    <Grid Background="#6689a2">
-        <TextBox x:Name="ValueText" 
+    <Grid Background="#6689a2" FocusManager.FocusedElement="{Binding ElementName=ValueText}">
+        <TextBox x:Name="ValueText"
             VerticalAlignment="Center" HorizontalAlignment="Center"
             Width="500" Height="25" FontSize="15">
         </TextBox>

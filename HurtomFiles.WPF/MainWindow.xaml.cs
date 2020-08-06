@@ -102,11 +102,12 @@ namespace HurtomFiles.WPF
                 body.Favorites.Add(DialogWindow.Value);
                 body.Show(FileElementTypes.FAVORITES);
             }
-
+            // TODO: label при не знаходженні результатів - інтерактивна; при нажиманні вибиває виключення
             if (e.Key.Equals(Key.F)
                 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                var elements = new SearchCommand().Result;
+                new DialogWindow("Пошук").ShowDialog();
+                var elements = new SearchCommand(DialogWindow.Value).Result;
 
                 if (elements.Count() == 0)
                     return;

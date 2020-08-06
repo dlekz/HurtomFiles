@@ -35,7 +35,8 @@ namespace HurtomFiles.WPF
             this.Title = windowName;
             Value = defaultValue;
 
-            DoingButton.Click += Doing;
+            this.DoingButton.Click += Doing;
+            this.KeyDown += Key_Down;
         }
 
         public string GetClipboardText()
@@ -51,6 +52,15 @@ namespace HurtomFiles.WPF
         {
             Value = ValueText.Text;
             this.Close();
+        }
+
+        public void Key_Down(Object sender, KeyEventArgs e) 
+        {
+            if (e.Key.Equals(Key.Enter))
+            {
+                Value = ValueText.Text;
+                this.Close();
+            }
         }
     }
 }
